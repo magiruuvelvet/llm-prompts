@@ -1,6 +1,6 @@
 # Context-aware Translator
 
-Specializes mainly in Japanese and Chinese (WIP) translations.
+A collection of system prompts that aim to provide contextual translations with several different vocabulary choices and grammatical structures.
 
 ## Base Models
 
