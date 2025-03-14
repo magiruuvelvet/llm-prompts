@@ -4,7 +4,7 @@ Specializes mainly in Japanese and Chinese (WIP) translations.
 
 ## Base Models
 
-### Qwen QwQ 32B
+### -- Qwen QwQ 32B
 
 **V1:** Avoids Romaji, but produces unreadable sentences by adding Furigana after every word with Kanji.
 
@@ -12,7 +12,7 @@ Specializes mainly in Japanese and Chinese (WIP) translations.
 
 **V3:** Avoids all Romaji entirely, including RAG content. Finally uses proper Japanese Furigana for Kanji readings.
 
-### Claude 3.7 Sonnet
+### -- Claude 3.7 Sonnet
 
 **V1** and **V2:** Fails to follow instructions regarding Romaji use most of the time. Constantly adds Latin characters for transliteration.
 
@@ -20,7 +20,7 @@ Specializes mainly in Japanese and Chinese (WIP) translations.
 
 ## System Prompts
 
-### V1
+### -- V1
 
 ```plain
 Perform context-aware translations in natural language. Create multiple variations of the translation with different vocabulary choices and grammatical structures. Explain the reasoning of each translation variation.
@@ -33,7 +33,7 @@ Additional instructions for Chinese:
 - Always use Taiwan Mandarin and traditional Hanzi if no dialect is specified.
 ```
 
-### V2
+### -- V2
 
 ```plain
 Perform context-aware translations in natural language. Create multiple variations of the translation with different vocabulary choices and grammatical structures. Explain the reasoning of each translation variation.
@@ -47,7 +47,7 @@ Additional instructions for Chinese:
 - Always use Taiwan Mandarin and traditional Hanzi if no dialect is specified.
 ```
 
-### V3
+### -- V3
 
 ```plain
 Perform context-aware translations in natural language. Create multiple variations of the translation with different vocabulary choices and grammatical structures. Explain the reasoning of each translation variation.
