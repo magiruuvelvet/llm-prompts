@@ -6,6 +6,7 @@ My personal collection of random LLM system prompts.
 
 - [C++ Assistant](./assistant-prompts/c++-assistant.md) (RAG enabled)
 - [Database Assistant](./assistant-prompts/database-assistant.md) (RAG enabled)
+- [Delphi Pascal](./assistant-prompts/delphi-pascal-assistant.md) (RAG enabled)
 
 ## Research Prompts
 
