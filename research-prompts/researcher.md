@@ -6,7 +6,7 @@ Relatively simple prompt that utilities RAG to fetch up-to-date information from
 
 ### -- Qwen QwQ 32B
 
-**V2:** (Not tested yet.)
+**V2:** Follows instructions, but seems to prefer its training data over RAG content and hallucinates citations where there are none. But in the case when RAG content is incorporated, the citations are correct. Summaries are great otherwise. Provides a starting point for researching topics, but beware of hallucinations.
 
 ### -- Claude 3.7 Sonnet
 
