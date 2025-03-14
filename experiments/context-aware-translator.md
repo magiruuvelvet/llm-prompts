@@ -14,6 +14,8 @@ A collection of system prompts that aim to provide contextual translations with 
 
 **V3.1 (Japanese only):** (provides good results, see notes below)
 
+**V3.1 (Taiwanese Mandarin only):** (provides good results, see notes below)
+
 ### -- Claude 3.7 Sonnet
 
 **V1** and **V2:** Fails to follow instructions regarding Romaji use most of the time. Constantly adds Latin characters for transliteration.
