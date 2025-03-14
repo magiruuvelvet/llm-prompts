@@ -18,6 +18,9 @@ My personal collection of random LLM system prompts.
 
 ## Notes
 
+**Environment**\
+Prompts are used in [Kagi Assistant](https://help.kagi.com/kagi/ai/assistant.html). The response quality might vary in other environments.
+
 **RAG content**\
 For best results with the assistant prompts, create proper search lenses to scope web searches to trustworthy documentation websites and forums of your choice.
 
