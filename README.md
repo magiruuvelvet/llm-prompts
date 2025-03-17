@@ -14,7 +14,7 @@ My personal collection of random LLM system prompts.
 
 ## Experiments
 
-- [Context-aware Translator](./experiments/context-aware-translator.md) (RAG enabled, knowledge in the involved languages is mandatory, prompt is meant for supplementary use to research translation capabilites with LLMs)
+- [Context-aware Translator](./experiments/context-aware-translator.md) (RAG enabled, knowledge in the involved languages is mandatory, prompts are meant for supplementary use to research translation capabilites with LLMs)
 
 ## Notes
 
