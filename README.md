@@ -26,6 +26,9 @@ Prompts are used in [Kagi Assistant](https://help.kagi.com/kagi/ai/assistant.htm
 **RAG content**\
 For best results with the assistant prompts, create proper search lenses to scope web searches to trustworthy documentation websites and forums of your choice.
 
+**Assistant Prompts**\
+The assistant prompts are meant to only assist you with your programming tasks and help you brainstorm ideas and concepts. Always verify and try to understand the output. They are not meant to generate entire components and applications for you (aka "vibe coding").
+
 ## License
 
 [CC0 "No Rights Reserved"](https://creativecommons.org/public-domain/cc0/) (Public Domain)
