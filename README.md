@@ -8,6 +8,7 @@ My personal collection of random LLM system prompts.
 - [Database Assistant](./assistant-prompts/database-assistant.md) (RAG enabled)
 - [Delphi Pascal Assistant](./assistant-prompts/delphi-pascal-assistant.md) (RAG enabled)
 - [Java Assistant](./assistant-prompts/java-assistant.md) (RAG enabled)
+- [JavaScript/TypeScript Web Development Assistant](./assistant-prompts/javascript-webdev-assistant.md) (RAG enabled)
 - [Ruby Assistant](./assistant-prompts/ruby-assistant.md) (RAG enabled)
 
 ## Research Prompts
