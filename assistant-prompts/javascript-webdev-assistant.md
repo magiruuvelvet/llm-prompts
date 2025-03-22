@@ -2,7 +2,7 @@
 
 A JavaScript/TypeScript assistant specialized in Web Development that adheres to my personal coding style.
 
-**Hint:** Remove the ES2020 requirement from the prompts to utilize lastest API and language features by default. Alternatively, replace the current ECMA version with the desired version.
+**Hint:** Remove the ES2020 requirement from the prompts to utilize latest API and language features by default. Alternatively, replace the current ECMA version with the desired version.
 
 ## Base Models
 
