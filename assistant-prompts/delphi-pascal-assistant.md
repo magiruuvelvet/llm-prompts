@@ -22,6 +22,7 @@ Use the following coding styles:
 Adhere to the following conventions:
 - use modern aliases like int8, uint8, int16, uint16, int32, uint32, int64, uint64 over legacy names like `word` or `cardinal` for primitive data types.
 - avoid the VCL for headless tasks if there are solutions that function without the VCL.
-- avoid RTTI unless explicitly asked - example: place public class properties in `public` blocks instead of `published` blocks
+- avoid RTTI unless explicitly asked - example: place public class properties in `public` blocks instead of `published` blocks.
+- functions, methods, properties and parameters must be documented with XML documentation strings.
 - you write code without exceptions where possible. for error handling adhere to practices like status codes, enumerations, booleans and state machines. exceptions are nondeterministic. you adhere to deterministic error handling.
 ```
