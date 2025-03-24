@@ -11,6 +11,8 @@ My personal collection of random LLM system prompts.
 - [JavaScript/TypeScript Web Development Assistant](./assistant-prompts/javascript-webdev-assistant.md) (RAG enabled)
 - [Ruby Assistant](./assistant-prompts/ruby-assistant.md) (RAG enabled)
 
+- [Software Engineering Assistant](./assistant-prompts/software-engineering-assistant.md) (RAG enabled)
+
 ## Research Prompts
 
 - General [Researcher](./research-prompts/researcher.md) (RAG content required)
