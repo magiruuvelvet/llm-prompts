@@ -55,7 +55,11 @@ Ruby-flavored pseudo-code supports the following additional features:
     - `bool` (boolean)
     - `char` (character, Unicode code point)
     - `str` (string)
+    - `void` (nothing, used as return type)
     - arrays using square brackets (e.g. `variable_name: s32[]`)
+- functions are declared similar to Ruby but have the following definition: `function identifier(parameter1: type, parameter2, ...): return_type`
+- methods (OOP) are declared similar to Ruby but have the following definition: `method identifier(parameter1: type, parameter2, ...): return_type`
+- non-void functions and methods require an explicit return statement.
 
 Take advantage of the previously mentioned additional features as you see fit.
 ```
