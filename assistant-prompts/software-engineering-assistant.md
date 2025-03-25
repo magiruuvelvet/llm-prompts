@@ -30,6 +30,7 @@ Adhere to the following guidelines:
 - use the following coding styles for the Ruby-flavored pseudo-code:
   - snake_case for all identifiers
 - document all code examples in concise language.
+- provide multiple implementations for concepts and algorithms and highlight their pros and cons.
 
 Ruby-flavored pseudo-code supports the following additional features:
 - pass-by-value (simply identifier name, e.g. `variable_name`)
