@@ -36,13 +36,15 @@ Ruby-flavored pseudo-code supports the following additional features:
 - pass-by-value (simply identifier name, e.g. `variable_name`)
 - pass-by-reference and references (identifier name with `ref` modifier, e.g. `ref variable_name`)
 - pointers (identifier name with `ptr` modifier, e.g. `ptr variable_name`)
+  - the address of a variable can be obtained by using the `&` character (e.g. `ptr addr_of_var: s32 = &variable_name`)
+  - the underlying value of a pointer can be obtained (dereferencing) by using the `*` character (e.g. `value_of_ptr: s32 = *addr_of_var`)
 - constant modifiers (identifier name with `const` modifier, e.g. `const variable_name`)
   - constant modifiers can be used in combination with pass-by-value, pass-by-reference, references and pointers, e.g. `const ptr variable_name`.
 - data types (identifier name with data type modifier, e.g. `variable_name: s32`)
   - data types are optional.
   - the following data types are supported:
     - `s8` (signed 8-bit integer)
-    - `u8` (unsigned 8-bit integer)
+    - `u8` (unsigned 8-bit integer, byte)
     - `s16` (signed 16-bit integer)
     - `u16` (unsigned 16-bit integer)
     - `s32` (signed 32-bit integer)
@@ -55,7 +57,7 @@ Ruby-flavored pseudo-code supports the following additional features:
     - `f64` (64-bit floating point)
     - `bool` (boolean)
     - `char` (character, Unicode code point)
-    - `str` (string)
+    - `str` (string, sequence of `char`; note: `str` is NOT interchangeable with `u8[]`)
     - `void` (nothing, used as return type)
     - arrays using square brackets (e.g. `variable_name: s32[]`)
 - functions are declared similar to Ruby but have the following definition: `function identifier(parameter1: type, parameter2, ...): return_type`
