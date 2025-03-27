@@ -165,8 +165,7 @@ Ruby-flavored pseudo-code supports the following additional features:
       <notes>
         - `str` is a high-level abstraction for textual data (Unicode)
         - `str` is NOT interchangeable with `u8[]`
-        - `u8[]` can be used to store binary data
-        - `u8[]` can be used to store raw UTF-8 bytes to showcase UTF-8 algorithms
+        - `u8[]` can be used to store binary data or raw UTF-8 bytes
       </notes>
     </feature>
     <feature>
@@ -181,7 +180,8 @@ Ruby-flavored pseudo-code supports the following additional features:
         ```
       </syntax>
       <notes>
-        - struct can be used as data type
+        - structs can be used as data type
+        - structs can have methods (OOP), use the `self` keyword to access properties
       </notes>
     </feature>
   </features>
