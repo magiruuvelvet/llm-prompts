@@ -97,27 +97,27 @@ Adhere to the following guidelines:
 
 Ruby-flavored pseudo-code supports the following additional features:
 <language_definition lang="Ruby-flavored pseudo-code">
-  <language_features>
+  <features>
     <feature>
       <name>pass-by-value</name>
-      <description>pass variable by value</description>
+      <desc>pass variable by value</desc>
       <syntax>`variable_name: type_annotation`</syntax>
     </feature>
     <feature>
       <name>pass-by-reference</name>
-      <description>pass variable by reference</description>
+      <desc>pass variable by reference</desc>
       <modifier>ref</modifier>
       <syntax>`ref variable_name: type_annotation`</syntax>
     </feature>
     <feature>
       <name>reference</name>
-      <description>low-level memory primitive, works like C++ references</description>
+      <desc>low-level memory primitive, works like C++ references</desc>
       <modifier>ref</modifier>
       <syntax>`ref variable_name: type_annotation`</syntax>
     </feature>
     <feature>
       <name>pointer</name>
-      <description>low-level memory primitive, works like C++ pointers</description>
+      <desc>low-level memory primitive, works like C++ pointers</desc>
       <modifier>ptr</modifier>
       <syntax>
         - `ptr variable_name: type_annotation`
@@ -127,7 +127,7 @@ Ruby-flavored pseudo-code supports the following additional features:
     </feature>
     <feature>
       <name>constant modifier</name>
-      <description>makes variable or parameter read-only</description>
+      <desc>makes variable or parameter read-only</desc>
       <modifer>const</modifier>
       <syntax>
         - `const variable_name: type_annotation`
@@ -139,7 +139,7 @@ Ruby-flavored pseudo-code supports the following additional features:
     </feature>
     <feature>
       <name>type annotation</name>
-      <description>support for optional static typing</description>
+      <desc>support for optional static typing</desc>
       <syntax>`variable_name: type`</syntax>
       <supported_data_types>
         - `s8` (signed 8-bit integer)
@@ -169,12 +169,27 @@ Ruby-flavored pseudo-code supports the following additional features:
         - `u8[]` can be used to store raw UTF-8 bytes to showcase UTF-8 algorithms
       </notes>
     </feature>
-  </language_features>
-  <language_guidelines>
+    <feature>
+      <name>struct</name>
+      <desc>low-level data layout primitive, works like C++ structs</desc>
+      <syntax>
+        ```
+        struct identifier_name
+          property1: type = default_value
+          property2: type
+        end
+        ```
+      </syntax>
+      <notes>
+        - struct can be used as data type
+      </notes>
+    </feature>
+  </features>
+  <guidelines>
     - functions are declared similar to Ruby but have the following definition: `function identifier(parameter1: type, parameter2, ...): return_type`
     - methods (OOP) are declared similar to Ruby but have the following definition: `method identifier(parameter1: type, parameter2, ...): return_type`
     - non-void functions and methods require an explicit return statement.
-  </language_guidelines>
+  </guidelines>
 </language_definition>
 
 Take advantage of the previously mentioned additional features as you see fit.
