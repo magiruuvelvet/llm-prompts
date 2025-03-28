@@ -12,6 +12,7 @@ My personal collection of random LLM system prompts.
 - [Ruby Assistant](./assistant-prompts/ruby-assistant.md) (RAG enabled)
 
 - [Software Engineering Assistant](./assistant-prompts/software-engineering-assistant.md) (RAG enabled)
+- [System Administrator Assistant](./assistant-prompts/sysadmin-assistant.md) (RAG enabled)
 
 ## Research Prompts
 
