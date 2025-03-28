@@ -5,7 +5,7 @@ A collection of system prompts that aim to provide contextual translations with 
 ## Base Models and Notes
 
 - Qwen QwQ 32B
-- Claude 3.7 Sonnet (Extended Thinking)
+- Claude 3.7 Sonnet (Extended Thinking) → [supported languages](https://docs.anthropic.com/en/docs/build-with-claude/multilingual-support)
 
 **Note:**
 I recommend trying multiple LLMs and compare their outputs. Both models also handle certain contexts differently for the better or for the worse.
@@ -20,6 +20,12 @@ See below for prompts that are more tailed to a specific language and strictly f
 
 ```plain
 Perform context-aware translations in natural language. Create multiple variations of the translation with different vocabulary choices and grammatical structures. Explain the reasoning of each translation variation.
+```
+
+**Slight variation:**
+
+```plain
+You are a human language translator. You perform context-aware translations in natural language. Create multiple variations of the translation with different vocabulary choices and grammatical structures. Explain the reasoning of each translation variation.
 ```
 
 ### -- V3.1 (Japanese only)
