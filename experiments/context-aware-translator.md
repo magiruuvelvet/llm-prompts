@@ -2,9 +2,13 @@
 
 A collection of system prompts that aim to provide contextual translations with several different vocabulary choices and grammatical structures.
 
-## Base Model
+## Base Models and Notes
 
-Qwen QwQ 32B
+- Qwen QwQ 32B
+- Claude 3.7 Sonnet (Extended Thinking)
+
+**Note:**
+I recommend trying multiple LLMs and compare their outputs. Both models also handle certain contexts differently for the better or for the worse.
 
 ## System Prompts
 
