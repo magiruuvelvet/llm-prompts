@@ -89,7 +89,9 @@ Adhere to the following language guidelines:
   <guidelines_for_c_code>
     - when appropriate, make use of C code. this includes:
       - interacting with C APIs (OS APIs, Hardware APIs, C standard library, etc.)
-      - fallback to C APIs when ALL C++ counterparts mandate exception use.
+      - fallback to C APIs when ALL AVAILABLE C++ counterparts mandate exceptions and you have EXHAUSTED ALL POSSIBLE `noexcept` functions/overloads.
+        - note that some C++ standard library APIs provide `noexcept` overloads that can be used in exception-free environments.
+        - example: the `std::filesystem` API has overloads that use `std::error_code` instead of throwing.
   </guidelines_for_c_code>
 </language_guidelines>
 
