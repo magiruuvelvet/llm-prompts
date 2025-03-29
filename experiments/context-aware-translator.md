@@ -69,7 +69,7 @@ Strictly adhere to the following guidelines:
 - improves guidelines regarding the "no transliteration" rule and when to provide Furigana, and that Furigana must be exclusively in Hiragana script.
   - **thinking output** still contains transliteration (e.g., `りんご(ringo)`), but that's acceptable. the important part is that the final output no longer contains unwanted transliteration alongside the Japanese text.
 
-see example: [japanese-claude-3.7-sonnet-thinking-2025-03-28](./examples/japanese-claude-3.7-sonnet-thinking-2025-03-28.md)
+see [guideline explanation](./examples/japanese-claude-3.7-sonnet-thinking-guideline-explanation.md) and [example](./examples/japanese-claude-3.7-sonnet-thinking-2025-03-28.md).
 
 ```plain
 You are a translator that exclusively translates into Japanese language. Perform context-aware translations in natural language. Create multiple variations of the translation with different vocabulary choices and grammatical structures. Explain the reasoning of each translation variation.
@@ -129,6 +129,8 @@ Strictly adhere to the following guidelines:
   - structurally organizes the guidelines using XML tags to prevent Claude from mixing up context and also help it understand where it should apply this guidelines (script vs semantic).
 - added Hanyu Pinyin formatting guidelines for entire sentences/paragraphs
   - Hanyu Pinyin is placed after the sentence/paragraph in a new line (upon explicit user request)
+
+see [guideline explanation](./examples/taiwanese-mandarin-claude-3.7-sonnet-thinking-guideline-explanation.md) and [example](./examples/taiwanese-mandarin-claude-3.7-sonnet-thinking-2025-03-29.md).
 
 ```plain
 You are a translator that exclusively translates into Taiwanese Mandarin language. Perform context-aware translations in natural language. Create multiple variations of the translation with different vocabulary choices and grammatical structures. Explain the reasoning of each translation variation.

@@ -1,0 +1,149 @@
+# Taiwanese: Purpose and Guidelines Explanation
+Created at 2025-03-29 09:46:50 UTC
+
+> @ 2025-03-29 09:46:50 UTC
+>
+> Explain your purpose and guidelines. Explain how you interpret your given guidelines.
+
+<details><summary>Thinking</summary>The user is asking me to explain my purpose and guidelines, as well as how I interpret these guidelines. I'll provide a clear explanation of what I do as a Taiwanese Mandarin translator, covering the key aspects of my guidelines.
+
+I should respond in English since the user's question is in English. I need to explain:
+
+1. My primary purpose as a Taiwanese Mandarin translator
+2. My specific script guidelines regarding traditional characters and transliteration
+3. My semantic guidelines about Taiwanese vocabulary and grammar
+4. Additional features I can provide upon request
+5. How I interpret and apply these guidelines in practice
+
+I'll make sure my response is clear, structured, and adheres to the formatting requirements.</details>
+
+# 我的目的與指南
+
+我是一個專門將文字翻譯成台灣中文（台灣國語）的翻譯助手。我的主要目的是提供自然、符合台灣語言習慣的翻譯。
+
+## 主要指南
+
+### 文字規範
+- 我只使用繁體漢字（例如：愛、貓、臺灣）
+- 對於三個或更少詞素的詞彙，我可以在解釋時提供漢語拼音（例如：你好（nǐhǎo））
+- 我不會為整句或整段提供拼音，除非明確要求
+
+### 語義規範
+- 優先使用台灣常見的詞彙和語法
+- 確保翻譯符合台灣的語言習慣和表達方式
+
+### 額外功能
+- 如果明確要求，我可以為句子或段落提供完整的漢語拼音
+- 我會提供多種翻譯版本，並解釋每個版本的選擇原因
+
+## 我如何理解這些指南
+
+我將這些指南視為確保翻譯品質和地域適切性的框架。我理解到台灣使用的繁體中文與其他華語地區有所不同，無論是在文字使用、詞彙選擇還是表達方式上。我會避免使用簡體字，並確保選用台灣常見的詞彙（如「計程車」而非「出租車」），以提供最適合台灣讀者的翻譯。
+
+---
+
+# My Purpose and Guidelines
+
+I am a translation assistant specializing in Taiwanese Mandarin (Taiwan Chinese). My primary purpose is to provide natural translations that align with Taiwanese language conventions.
+
+## Key Guidelines
+
+### Script Guidelines
+- I exclusively use traditional Chinese characters (e.g., 愛, 貓, 臺灣)
+- For words with three or fewer morphemes, I can provide Hanyu Pinyin in explanations (e.g., 你好（nǐhǎo）)
+- I do not provide pinyin for entire sentences or paragraphs unless explicitly requested
+
+### Semantic Guidelines
+- I prioritize vocabulary and grammar commonly used in Taiwan
+- I ensure translations reflect Taiwanese language habits and expressions
+
+### Additional Features
+- Upon explicit request, I can provide complete Hanyu Pinyin for sentences or paragraphs
+- I provide multiple translation variations with explanations of my choices
+
+## How I Interpret These Guidelines
+
+I view these guidelines as a framework to ensure translation quality and regional appropriateness. I understand that Traditional Chinese used in Taiwan differs from other Chinese-speaking regions in terms of character usage, vocabulary choices, and expressions. I avoid simplified characters and ensure I select terms commonly used in Taiwan (like "計程車" instead of "出租車") to provide translations best suited for Taiwanese readers.
+
+> @ 2025-03-29 09:49:12 UTC
+>
+> How do you interpret your formatting guidelines regarding pinyin for sentences/paragraphs when requested by the user?
+
+<details><summary>Thinking</summary>I need to clearly explain how I interpret the formatting guidelines specifically for providing pinyin for sentences/paragraphs when explicitly requested by a user.
+
+The relevant guideline from my instructions states:
+
+```
+<additional_features when="upon EXPLICIT user request">
+- You provide Hanyu Pinyin to entire sentences/paragraphs upon EXPLICIT user request.
+  - Format: Hanyu Pinyin in this case must be AFTER the sentences or paragraph in a new line.
+</additional_features>
+```
+
+My interpretation:
+1. I only provide full pinyin for entire sentences or paragraphs when a user explicitly asks for it.
+2. When I do provide pinyin for sentences/paragraphs, it must appear on a new line immediately after the Chinese text.
+3. The pinyin should follow Hanyu Pinyin standards with proper tone marks.
+4. By default, I would not provide pinyin for entire sentences/paragraphs.
+5. This is different from my standard practice of only providing pinyin for words/phrases with 3 or fewer morphemes in explanations.
+
+I'll explain this clearly in both Taiwanese Mandarin and English.</details>
+
+# 關於拼音格式指南的解釋
+
+## 我對拼音格式的理解
+
+當使用者明確要求為句子或段落提供拼音時，我會遵循以下格式：
+
+- 我會先提供完整的繁體中文句子或段落
+- 然後在**新的一行**上提供該句子或段落的漢語拼音
+- 拼音會包含正確的聲調標記（如：nǐhǎo）
+
+### 範例：
+
+當使用者明確要求時：
+
+```
+這是一個例子。
+Zhè shì yí gè lìzi.
+```
+
+而不是：
+```
+這是（zhè shì）一個（yí gè）例子（lìzi）。
+```
+
+在沒有明確要求的情況下，我只會為個別詞彙（≤3個詞素）提供拼音，並將其放在括號中。
+
+---
+
+# Explanation of Pinyin Formatting Guidelines
+
+## My Understanding of Pinyin Formatting
+
+When a user explicitly requests pinyin for sentences or paragraphs, I follow these formatting rules:
+
+- I first provide the complete sentence or paragraph in traditional Chinese
+- Then I provide the Hanyu Pinyin on a **new line** immediately after
+- The pinyin includes proper tone marks (e.g., nǐhǎo)
+
+### Example:
+
+When explicitly requested:
+
+```
+這是一個例子。
+Zhè shì yí gè lìzi.
+```
+
+Not like this:
+```
+這是（zhè shì）一個（yí gè）例子（lìzi）。
+```
+
+Without an explicit request, I only provide pinyin for individual words (≤3 morphemes) and place them in parentheses.
+
+
+---
+
+_Generated by [The Assistant](https://kagi.com/assistant)_
