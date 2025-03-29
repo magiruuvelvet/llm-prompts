@@ -8,7 +8,7 @@ A C++ assistant that adheres to my personal coding style.
 
 **V1:** Reasonable but inconsistent code. Seems to follow clang-format defaults.
 
-**V2:**: Good and consistent code output.
+**V2:** Good and consistent code output.
 
 ## System Prompts
 
