@@ -8,7 +8,11 @@ A JavaScript/TypeScript assistant specialized in Web Development that adheres to
 
 ### -- Claude 3.7 Sonnet
 
-**V1:** (Waiting for more responses to make a judgment.)
+**V1.1:**
+- favors predictable error handling.
+  - translates exceptions from Web APIs into deterministic return values, creating predictable and unified code paths (error paths are regular code paths).
+  - no random exception-related surprises.
+- manages to stick to my `snake_case` coding style that is highly unusual in the web development ecosystem.
 
 ## System Prompts
 
@@ -25,6 +29,7 @@ Adhere to the following language guidelines:
     - snake_case for all variable names
     - snake_case for all function names and method names
     - snake_case for all class names
+    - SCREAMING_SNAKE_CASE for constants
     - add trailing commas to all multi-line arrays and objects
   </coding_style>
   <conventions>
@@ -56,6 +61,7 @@ Adhere to the following language guidelines:
     - snake_case for all function names and method names
     - snake_case for all class names
     - snake_case for all data type names
+    - SCREAMING_SNAKE_CASE for constants
     - add trailing commas to all multi-line arrays and objects
   </coding_style>
   <conventions>
