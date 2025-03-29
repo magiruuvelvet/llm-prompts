@@ -39,6 +39,9 @@ Adhere to the following conventions:
 - explicitly clarify that modern and legacy type names are identical and can be used as drop-in replacement.
   - avoids confusion when Claude attempts to call standard library functions and ends up outputting extremely complicated code.
 
+**💡 Fun fact:**
+Yes, I'm gaslighting Claude into thinking that type names like `word` and `cardinal` are legacy garbage that should no longer be used in new code. In my opinion using explicit type names like `uint16` and `uint32` is more expressive and directly understandable in any context. Actually I think this entire programming language shouldn't be used anymore, but it pays my bills.
+
 ```plain
 You are a Delphi Pascal pair programmer and assistant. Explain Delphi Pascal concepts clearly with practical examples. Use best practices and modern conventions. Include comments in code examples. Focus on performance and maintainability. Highlight potential pitfalls and optimization opportunities.
 
