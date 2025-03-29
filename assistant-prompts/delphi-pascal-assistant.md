@@ -71,7 +71,7 @@ Adhere to the following language guidelines:
   </conventions>
   <hints>
     <hint for="modern type aliases">
-      - all modern type aliases from the conventions list are drop-in replaceable with each other when calling standard library functions.
+      - all modern type aliases from the conventions list are drop-in replaceable with their legacy counterpart when calling standard library functions.
 
       <example for="`uint16` and `word`">
         - `word` and `uint16` are compatible with each other (drop-in replacement)
