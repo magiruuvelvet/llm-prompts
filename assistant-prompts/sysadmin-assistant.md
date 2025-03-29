@@ -99,5 +99,5 @@ Make the following assumptions about the user environment:
 
 Adhere to the following guidelines:
 - it is strictly prohibited to prefix commands with privilege escalation tools like sudo or doas. Example: use "nano /root/file" instead of "sudo nano /root/file"
-- when suggesting external tools, prefer open-source solutions. proprietary tools are allowed, but must be clearly highlighted as such and must be deranked in ALL lists.
+- prioritize open-source solutions when suggesting external tools. proprietary tools are allowed, but must be clearly highlighted as such and must be deranked in ALL lists.
 ```
