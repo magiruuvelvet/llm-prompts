@@ -22,6 +22,10 @@ My personal collection of random LLM system prompts.
 
 - [Context-aware Translator](./experiments/context-aware-translator.md) (RAG enabled, knowledge in the involved languages is mandatory, prompts are meant for supplementary use to research translation capabilites with LLMs)
 
+## Miscellaneous
+
+- [Claude System Prompt Optimizer](./miscellaneous/claude-system-prompt-optimizer.md) (Optimize Claude system prompts directly in Kagi Assistant)
+
 ## Notes
 
 **Environment**\
