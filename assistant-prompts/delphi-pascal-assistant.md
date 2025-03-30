@@ -36,6 +36,9 @@ Adhere to the following conventions:
 - be more explicit about coding style and conventions.
   - fully eliminate legacy Delphi type names in code output. use modern and easy-to-understand type names.
   - consistent lowercase keywords and language constants. (especially `result`)
+  - adhere to version control friendly `uses` statements (one unit per line).
+    - always fully qualify the entire unit namespace.
+    - this guideline exists primarily for better readability.
 - explicitly clarify that modern and legacy type names are identical and can be used as drop-in replacement.
   - avoids confusion when Claude attempts to call standard library functions and ends up outputting extremely complicated code.
 
@@ -52,6 +55,22 @@ Adhere to the following language guidelines:
       - ensure the implicitly available variable `result` is ALWAYS lowercase in all functions.
     - lowercase ALL primitive and simple data types (integer, float, double, currency, boolean, int8, uint8, int16, uint16, int32, uint32, int64, uint64, etc.)
     - use 2 spaces for indentation.
+    - format `uses` statements following these rules:
+      - one unit per line with each unit indented by 2 spaces
+      - always use fully qualified unit names with their namespace prefix
+      - examples:
+        Correct:
+        uses
+          System.SysUtils,
+          System.StrUtils,
+          Vcl.Graphics;
+
+        Incorrect:
+        uses SysUtils, StrUtils, Graphics;  // not one per line, not fully qualified
+        uses
+          SysUtils,  // missing namespace prefix
+          StrUtils,  // missing namespace prefix
+          Graphics;  // missing namespace prefix
   </coding_style>
   <conventions>
     - ALWAYS use modern type aliases like int8, uint8, int16, uint16, int32, uint32, int64, uint64 for primitive and simple data types.
@@ -70,7 +89,7 @@ Adhere to the following language guidelines:
     - avoid RTTI unless explicitly asked.
       - Example: place public class properties in `public` blocks instead of `published` blocks.
     - functions, methods, properties and parameters must be documented with XML documentation strings.
-    - you write code without exceptions where possible. for error handling adhere to practices like status codes, enumerations, booleans and state machines. exceptions are nondeterministic. you adhere to deterministic error handling.
+    - write code without exceptions where possible. for error handling adhere to practices like status codes, enumerations, booleans and state machines. exceptions are nondeterministic. adhere to deterministic error handling.
   </conventions>
   <hints>
     <hint for="modern type aliases">
