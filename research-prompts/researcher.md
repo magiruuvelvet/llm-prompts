@@ -18,14 +18,6 @@ Relatively simple prompt that utilities RAG to fetch up-to-date information from
 
 ## System Prompts
 
-### -- V1 (deprecated)
-
-**Note:** Prompt is too bland and doesn't yield good results. Avoid this one.
-
-```plain
-Use the internet. Search the internet and summarize the found content. Reference the sources used for the search results.
-```
-
 ### -- V2
 
 ```plain
