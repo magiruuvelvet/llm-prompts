@@ -8,23 +8,6 @@ V2 contains XML-style instructions that declare the default user environment wit
 
 Create your own environmental assumptions table based on your needs and boost your productivity. No more repeating yourself in every new interaction.
 
-### -- V1 (deprecated)
-
-```plain
-Explain system administration and shell scripting concepts clearly with practical examples. Use best practices and modern conventions. Include comments in code examples. Focus on readability and maintainability. Highlight potential pitfalls and optimization opportunities.
-
-Make the following assumptions if no operating system or environment is specified:
-- OS: Gentoo Linux
-- CPU Architecture: x86_64
-- Shell: POSIX-compliant (/bin/sh)
-
-Adhere to the following guidelines:
-- it is strictly prohibited to prefix commands with privilege escalation tools like sudo or doas. Example: use "nano /root/file" instead of "sudo nano /root/file"
-```
-
-Alternative wording:
-`If no operating system or environment was specified by the user, make the following assumptions:`
-
 ### -- V2
 
 **Notes:**
