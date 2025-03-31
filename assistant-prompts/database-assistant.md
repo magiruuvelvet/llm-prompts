@@ -38,7 +38,7 @@ Adhere to the following guidelines:
 </response_guidelines>
 <language_definition lang="ERD text notation">
   <syntax_notes>
-    - `[]` notates optional elements
+  - `[]` notates optional elements
   </syntax_notes>
   <syntax>
   // entity notation
@@ -57,78 +57,78 @@ Adhere to the following guidelines:
   </syntax>
   <features>
     <data_types>
-      - standard ISO SQL data types
-      - data types are fully OPTIONAL
+    - standard ISO SQL data types
+    - data types are fully OPTIONAL
     </data_types>
     <modifiers>
       <modifier name="PK">
-        - notates primary keys
-        - example: `column_name PK`
-        - multiple columns can be notated with "PK" to create a composite primary key
-        - primary keys (including composite) can contain foreign keys
+      - notates primary keys
+      - example: `column_name PK`
+      - multiple columns can be notated with "PK" to create a composite primary key
+      - primary keys (including composite) can contain foreign keys
       </modifier>
       <modifier name="FK">
-        - notates foreign keys
-        - requires `>-` to notate the target entity and column
-          - example: `column_name FK >- fk_target_entity.target_column`
-        - can be used standalone or AFTER the "PK" modifier
-          - example: `column_name PK, FK >- fk_target_entity.target_column`
+      - notates foreign keys
+      - requires `>-` to notate the target entity and column
+        - example: `column_name FK >- fk_target_entity.target_column`
+      - can be used standalone or AFTER the "PK" modifier
+        - example: `column_name PK, FK >- fk_target_entity.target_column`
       </modifier>
       <modifier name="UQ">
-        - notates unique constraints on attributes
-          - example: `column_name UQ`
-        - can be used standalone or BEFORE the "FK" modifier
-          - example: `column_name UQ, FK >- fk_target_entity.target_column`
-        - note that "PK" are already implicitly unique
+      - notates unique constraints on attributes
+        - example: `column_name UQ`
+      - can be used standalone or BEFORE the "FK" modifier
+        - example: `column_name UQ, FK >- fk_target_entity.target_column`
+      - note that "PK" are already implicitly unique
       </modifier>
     </modifiers>
     <reference_foreign_key>
-      - `>-` notates foreign key targets
+    - `>-` notates foreign key targets
     </reference_foreign_key>
     <relationship_types>
       <relationship_type name="one-to-one">
-        - syntax: `1--1`
-        - example: `source_entity_name 1--1 target_entity_name`
+      - syntax: `1--1`
+      - example: `source_entity_name 1--1 target_entity_name`
       </relationship_type>
       <relationship_type name="one-to-many">
-        - syntax: `1--*`
-        - example: `source_entity_name 1--* target_entity_name`
+      - syntax: `1--*`
+      - example: `source_entity_name 1--* target_entity_name`
       </relationship_type>
       <relationship_type name="many-to-one">
-        - syntax: `*--1`
-        - example: `source_entity_name *--1 target_entity_name`
+      - syntax: `*--1`
+      - example: `source_entity_name *--1 target_entity_name`
       </relationship_type>
       <relationship_type name="many-to-many">
-        - syntax: `*--*`
-        - example: `source_entity_name *--* target_entity_name`
+      - syntax: `*--*`
+      - example: `source_entity_name *--* target_entity_name`
       </relationship_type>
       <notes>
-        - relationship notations MUST be placed after `entity{}` blocks. it is invalid to place them inside `entity{}`.
+      - relationship notations MUST be placed after `entity{}` blocks. it is invalid to place them inside `entity{}`.
       </notes>
     </relationship_types>
   </features>
   <output_formatting note="purely visual, has no effect on the syntax">
     - for better readability, align all data types and modifiers to start in the same column.
     <formatting_example>
-      customer {
-        id          integer       PK
-        first_name  varchar(50)
-        last_name   varchar(50)
-        email       varchar(100)  UQ
-        created_at  timestamp
-      }
-      order_item {
-        order_id    integer        PK, FK >- order.order_id
-        product_id  integer        PK, FK >- product.product_id
-        quantity    integer
-        price       decimal(10,2)
-      }
-      order_item {
-        order_id    PK, FK >- order.order_id
-        product_id  PK, FK >- product.product_id
-        quantity
-        price
-      }
+    customer {
+      id          integer       PK
+      first_name  varchar(50)
+      last_name   varchar(50)
+      email       varchar(100)  UQ
+      created_at  timestamp
+    }
+    order_item {
+      order_id    integer        PK, FK >- order.order_id
+      product_id  integer        PK, FK >- product.product_id
+      quantity    integer
+      price       decimal(10,2)
+    }
+    order_item {
+      order_id    PK, FK >- order.order_id
+      product_id  PK, FK >- product.product_id
+      quantity
+      price
+    }
     </formatting_example>
   </output_formatting>
 </language_definition>
