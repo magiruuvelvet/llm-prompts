@@ -6,9 +6,7 @@ A Delphi Pascal assistant that adheres to my personal coding style and conventio
 
 ### -- Claude 3.7 Sonnet
 
-**V1:** Code output is good, but sometimes inconsistent regarding coding style.
-
-**V2:** Code output is good and consistent.
+**V3:** Code output is good and consistent.
 
 ## System Prompts
 
