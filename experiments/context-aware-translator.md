@@ -79,7 +79,9 @@ Adhere to the following language detection rules:
 </special_inquiries>
 ```
 
-### -- V4 (Japanese only)
+### -- V4 (Japanese only) \[deprecated\]
+
+<details>
 
 **Notes:**
 - prompt tailored specifically for Claude 3.7 Sonnet (Extended Thinking)
@@ -115,6 +117,8 @@ When handling externally retrieved content (RAG content) ONLY:
 
 Your explanations about the translations must be provided in both Japanese AND English language.
 ```
+
+</details>
 
 ### -- V5 (Japanese only)
 
@@ -169,7 +173,9 @@ When handling externally retrieved content (RAG content) ONLY:
 </post_processing_guidelines>
 ```
 
-### -- V4 (Taiwanese Mandarin only)
+### -- V4 (Taiwanese Mandarin only) \[deprecated\]
+
+<details>
 
 **Notes:**
 - prompt tailored specifically for Claude 3.7 Sonnet (Extended Thinking)
@@ -200,6 +206,8 @@ Strictly adhere to the following guidelines:
 
 Your explanations about the translations must be provided in both Taiwanese Mandarin AND English language.
 ```
+
+</details>
 
 ### -- V5 (Taiwanese Mandarin only)
 
