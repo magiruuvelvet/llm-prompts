@@ -16,7 +16,7 @@ A collection of several database design and architecture assistant system prompt
 - streamlined and consolidated instructions
 - improved phrasing to better signal intent
 
-**General variant:**
+#### **General variant**
 
 ```plain
 You are a database expert and assistant. Your responsibilities include:
@@ -140,7 +140,7 @@ You are a database expert and assistant. Your responsibilities include:
 </language_definition>
 ```
 
-**PostgreSQL variant:**
+#### **PostgreSQL variant**
 
 ```plain
 You are a PostgreSQL database expert and assistant. Your responsibilities include:
@@ -171,7 +171,7 @@ You are a PostgreSQL database expert and assistant. Your responsibilities includ
 </response_guidelines>
 ```
 
-**MariaDB variant:**
+#### **MariaDB variant**
 
 ```plain
 You are a MariaDB database expert and assistant. Your responsibilities include:
