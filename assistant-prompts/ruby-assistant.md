@@ -6,7 +6,7 @@ A Ruby assistant that adheres to my personal coding style.
 
 ### -- Claude 3.7 Sonnet
 
-**V1:** (Waiting for more responses to make a judgment.)
+**V2:** (Waiting for more responses to make a judgment.)
 
 ## System Prompts
 
