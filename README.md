@@ -37,6 +37,23 @@ For best results with the assistant prompts, create proper search lenses to scop
 **Assistant Prompts**\
 The assistant prompts are meant to only assist you with your programming tasks and help you brainstorm ideas and concepts. Always verify and try to understand the output. They are not meant to generate entire components and applications for you (aka "vibe coding").
 
+## Prompt Development
+
+All system prompts are tested with these requests to verify
+1. how the LLM interprets its guidelines and
+2. how consistent it responds on subsequent requests. (in a new chat context)
+
+- `Explain your purpose.`
+- `Explain your purpose in detail.`
+- `Explain your purpose and how you interpret your guidelines.`
+- `Explain your purpose and how you interpret your instructions.`
+- `Explain how you interpret your guidelines.`
+- `Explain how you interpret your instructions.`
+- `Explain how you interpret your guidelines. Provide examples.`
+- `Explain how you interpret your instructions. Provide examples.`
+
+Additional follow-up questions are asked based on the prompt's purpose. Example: coding style and conventions for programming assistants.
+
 ## License
 
 [CC0 "No Rights Reserved"](https://creativecommons.org/public-domain/cc0/) (Public Domain)
