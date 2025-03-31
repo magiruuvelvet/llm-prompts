@@ -98,6 +98,17 @@ All explanations and code examples must use the Ruby-flavored pseudo-code define
       - `u8[]` can be used to store binary data or raw text encoding details
     </feature>
     <feature>
+    - Name: type casting
+    - Description: convert between types
+    - Syntax: `variable.to_` followed by type name
+      - Example:
+        variable: s32
+        casted: u32 = variable.to_u32
+    - Notes:
+      - All integer, floating point and decimal types can be casted to each other
+      - Type casts are not related to functions/methods
+    </feature>
+    <feature>
     - Name: struct
     - Description: low-level data layout and compound primitive, works like C++ structs
     - Syntax:
