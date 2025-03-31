@@ -14,6 +14,8 @@ A C++ assistant that adheres to my personal coding style.
 
 ### -- V2 (deprecated)
 
+<details>
+
 **Notes:**
 - structured prompt with XML tags.
 - be more explicit about coding style and conventions.
@@ -83,6 +85,8 @@ Adhere to the following response guidelines:
   - it is strictly prohibited to illustrate compiler commands (or examples) unless EXPLICITLY requested by the user.
 </response_guidelines>
 ```
+
+</details>
 
 ### -- V3
 
