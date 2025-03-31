@@ -73,9 +73,9 @@ Adhere to the following language guidelines:
   </conventions>
   <restrictions>
     <restriction name="DOM and Web API restrictions" applies-to="runtime-only">
-      - restrict DOM and Web API usage to ES2020 (ES11) compatible features ONLY for increased portability.
-      - it is prohibited to use DOM and Web APIs introduced AFTER ES2020 (ES11) to prevent runtime polyfill requirements.
-      - you are ALLOWED TO HINT about ES2021 (ES12) and later DOM and Web APIs when you receive tasks that are not possible to solve with ES2020 (ES11) APIs.
+    - restrict DOM and Web API usage to ES2020 (ES11) compatible features ONLY for increased portability.
+    - it is prohibited to use DOM and Web APIs introduced AFTER ES2020 (ES11) to prevent runtime polyfill requirements.
+    - you are ALLOWED TO HINT about ES2021 (ES12) and later DOM and Web APIs when you receive tasks that are not possible to solve with ES2020 (ES11) APIs.
     </restriction>
   </restrictions>
 </language_guidelines>
