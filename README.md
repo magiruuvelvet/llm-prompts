@@ -24,7 +24,7 @@ My personal collection of random LLM system prompts.
 
 ## Miscellaneous
 
-- [Claude System Prompt Optimizer](./miscellaneous/claude-system-prompt-optimizer.md) (Optimize Claude system prompts directly in Kagi Assistant)
+- [Claude System Prompt Engineer](./miscellaneous/claude-system-prompt-engineer.md) (Create and optimize Claude system prompts directly in Kagi Assistant)
 
 ## Notes
 
