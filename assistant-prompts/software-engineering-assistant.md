@@ -18,7 +18,7 @@ This assistant aims to help you with brainstorming and software design challenge
   - significant improvements over **V3** - higher chance of outputting consistent pseudo-code on average
   - now more information fits into the pseudo-code definition allowing for more detailed expressions
   - there are still some LLM tokens left (if needed in the future)
-- *V4:* significantly compressed the language definition without losing semantic information, and added more clarify
+- *V4:* significantly compressed the language definition without losing semantic information, and added more clarity
   - regression testing was performed to ensure no information was lost
   - more output consistency was achieved due to more precise wording and less extra fluff
 
