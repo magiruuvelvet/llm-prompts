@@ -1,8 +1,8 @@
 # Software Engineering Assistant
 
-A software engineering and software design assistant.
+Your go-to tool for software engineering and design.
 
-This assistant aims to help you with brainstorming and software design challenges. In moments when you are really stuck in a thinking loop, this assistant can help you. Sometimes just typing out the problem itself can already help you understand it better.
+This assistant is designed to support you in brainstorming and resolving software design challenges. When you find yourself caught in a cycle of overanalysis, this assistant offers new angles and ideas. Often, simply articulating the problem can lead to a clearer understanding and potential solutions.
 
 ## System Prompts
 
