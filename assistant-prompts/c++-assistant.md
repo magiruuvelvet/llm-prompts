@@ -1,6 +1,6 @@
 # C++ Assistant
 
-A C++ assistant that adheres to my personal coding style.
+A C++ assistant that adheres to my personal coding style and conventions.
 
 ## Base Models
 
