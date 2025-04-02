@@ -1,6 +1,6 @@
 # Database Assistant
 
-A collection of several database design and architecture assistant system prompts.
+A collection of several database design and architecture assistants. Supports data modeling and practical read-world implementations.
 
 ## Base Models
 
