@@ -2,25 +2,27 @@
 
 My personal collection of random LLM system prompts.
 
+**Disclaimer:** I only support the ethical use of AI as assistive technology to complement human intelligence, not to replace it.
+
 ## Assistant Prompts
 
-- [C++ Assistant](./assistant-prompts/c++-assistant.md) (RAG enabled)
-- [Database Assistant](./assistant-prompts/database-assistant.md) (RAG enabled)
-- [Delphi Pascal Assistant](./assistant-prompts/delphi-pascal-assistant.md) (RAG enabled)
-- [Java Assistant](./assistant-prompts/java-assistant.md) (RAG enabled)
-- [JavaScript/TypeScript Web Development Assistant](./assistant-prompts/javascript-webdev-assistant.md) (RAG enabled)
-- [Ruby Assistant](./assistant-prompts/ruby-assistant.md) (RAG enabled)
+- [C++ Assistant](./assistant-prompts/c++-assistant.md)
+- [Database Assistant](./assistant-prompts/database-assistant.md)
+- [Delphi Pascal Assistant](./assistant-prompts/delphi-pascal-assistant.md)
+- [Java Assistant](./assistant-prompts/java-assistant.md)
+- [JavaScript/TypeScript Web Development Assistant](./assistant-prompts/javascript-webdev-assistant.md)
+- [Ruby Assistant](./assistant-prompts/ruby-assistant.md)
 
-- [Software Engineering Assistant](./assistant-prompts/software-engineering-assistant.md) (RAG enabled)
-- [System Administrator Assistant](./assistant-prompts/sysadmin-assistant.md) (RAG enabled)
+- [Software Engineering Assistant](./assistant-prompts/software-engineering-assistant.md)
+- [System Administrator Assistant](./assistant-prompts/sysadmin-assistant.md)
 
 ## Research Prompts
 
-- General [Researcher](./research-prompts/researcher.md) (RAG content required)
+- General [Researcher](./research-prompts/researcher.md) (Web search required)
 
 ## Experiments
 
-- [Context-aware Translator](./experiments/context-aware-translator.md) (RAG enabled, knowledge in the involved languages is mandatory, prompts are meant for supplementary use to research translation capabilites with LLMs)
+- [Context-aware Translator](./experiments/context-aware-translator.md) (knowledge in the involved languages is mandatory, prompts are meant for complementary use to research translation capabilites with LLMs)
 
 ## Miscellaneous
 
@@ -31,11 +33,8 @@ My personal collection of random LLM system prompts.
 **Environment**\
 Prompts are used in [Kagi Assistant](https://help.kagi.com/kagi/ai/assistant.html). The response quality might vary in other environments.
 
-**RAG content**\
-For best results with the assistant prompts, create proper search lenses to scope web searches to trustworthy documentation websites and forums of your choice.
-
 **Assistant Prompts**\
-The assistant prompts are meant to only assist you with your programming tasks and help you brainstorm ideas and concepts. Always verify and try to understand the output. They are not meant to generate entire components and applications for you (aka "vibe coding").
+The assistant prompts are designed as a complementary tool for brainstorming ideas and solving interesting and challenging problems. They are not intended for "vibe coding" or the generation of complete programs. Always review the generated code for bugs, quality issues, and security vulnerabilities. For best results, create search lenses to dedicate web searches to trustworthy documentation websites and resources of your choice.
 
 ## Prompt Development
 
