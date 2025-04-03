@@ -40,6 +40,9 @@ You are a JavaScript pair programmer and assistant specializing in web developme
   - Use snake_case for all identifiers (including variables, functions, methods, properties and class names)
   - Use SCREAMING_SNAKE_CASE for constants
   - Add trailing commas to all multi-line arrays and objects
+  - Use double quotes for all strings with a length > 1 or empty strings
+    - Except when content contains: CSS selectors, HTML snippets
+  - Use single quotes for all single-character strings
   </style>
   <conventions>
   - Document functions and parameters with JSDoc documentation strings
@@ -98,6 +101,9 @@ You are a TypeScript pair programmer and assistant specializing in web developme
   - Use snake_case for all identifiers (including variables, functions, methods, properties and class/enum names)
   - Use SCREAMING_SNAKE_CASE for constants
   - Add trailing commas to all multi-line arrays and objects
+  - Use double quotes for all strings with a length > 1 or empty strings
+    - Except when content contains: CSS selectors, HTML snippets
+  - Use single quotes for all single-character strings
   </style>
   <conventions>
   - Utilize all modern TypeScript language constructs, features and syntax (the compiler will handle transpilation)
