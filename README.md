@@ -18,7 +18,11 @@ My personal collection of random LLM system prompts.
 
 ## Research Prompts
 
-- General [Researcher](./research-prompts/researcher.md) (Web search required)
+**Web search required!**\
+All research prompts provide proper citations in Kagi Assistant.
+
+- General [Researcher](./research-prompts/researcher.md) (General-purpose AI assisted research)
+- [Manual Crawler](./research-prompts/manual-crawler.md) (Product manual and specification sheet crawler + summarizer)
 
 ## Experiments
 
