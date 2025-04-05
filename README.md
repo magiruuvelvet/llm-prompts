@@ -7,6 +7,7 @@ My personal collection of random LLM system prompts.
 ## Assistant Prompts
 
 - [C++ Assistant](./assistant-prompts/c++-assistant.md)
+- [C Assistant](./assistant-prompts/c-assistant.md)
 - [Database Assistant](./assistant-prompts/database-assistant.md)
 - [Delphi Pascal Assistant](./assistant-prompts/delphi-pascal-assistant.md)
 - [Java Assistant](./assistant-prompts/java-assistant.md)
