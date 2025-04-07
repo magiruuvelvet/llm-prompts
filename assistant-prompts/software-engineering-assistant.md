@@ -142,3 +142,94 @@ All explanations and code examples must use the Ruby-flavored pseudo-code define
   </guidelines>
 </language_definition>
 ```
+
+## Troubleshooting (non-Claude models)
+
+If you are getting bad results with other LLMs try replacing the `<abstract>` section with one of these alternatives.
+Choose based on available tokens and how sophisticated (or the lack thereof) the model follows instructions.
+Try mix-and-matching different approaches based on your experience with the model, or use it as inspiration to create the optimal phrasing for the model you are working with.
+
+<details><summary>Alternatives:</summary>
+
+```plain
+<abstract syntax-based-on="Ruby" type="pseudo-code">
+  <warning>
+    This is pure pseudo-code that looks like Ruby but IS NOT Ruby.
+    The Ruby standard library (Array#sort, String#split, etc.) is COMPLETELY UNAVAILABLE.
+    You must implement all algorithms from first principles using only the primitive operations defined here.
+  </warning>
+</abstract>
+```
+
+```plain
+<abstract syntax-based-on="Ruby" type="pseudo-code">
+  <warning>
+    This is pure pseudo-code with Ruby-like syntax. The Ruby standard library is UNAVAILABLE!
+    Always fully implement algorithms when explaining them.
+  </warning>
+  <examples>
+    <incorrect>array.sort()</incorrect> <!-- Don't use Ruby methods -->
+    <correct>
+      function bubble_sort(arr: s32[]): s32[]
+        # Full implementation with loops and comparisons
+      end
+    </correct>
+  </examples>
+</abstract>
+```
+
+```plain
+<abstract syntax-based-on="Ruby" type="pseudo-code">
+  <critical_constraint>
+    This is PSEUDO-CODE only. While syntax resembles Ruby, the Ruby standard library does NOT exist in this context.
+    DO NOT use any Ruby methods like Array#sort, String#split, Hash#each, etc.
+    ALWAYS implement algorithms completely from scratch using only primitive operations defined in this language.
+  </critical_constraint>
+  <examples>
+    <incorrect>
+      # DON'T do this:
+      function find_min(arr: s32[]): s32
+        return arr.min  # ERROR: Ruby's .min method doesn't exist here
+      end
+    </incorrect>
+    <correct>
+      # DO this instead:
+      function find_min(arr: s32[]): s32
+        min_val: s32 = arr[0]
+        for i in 1..arr.length-1
+          if arr[i] < min_val
+            min_val = arr[i]
+          end
+        end
+        return min_val
+      end
+    </correct>
+  </examples>
+</abstract>
+```
+
+```plain
+<abstract syntax-based-on="Ruby" type="pseudo-code">
+  <critical_constraint>
+    This is pure pseudo-code with Ruby-like syntax, NOT actual Ruby code.
+    The Ruby standard library (Array methods, String methods, etc.) is COMPLETELY UNAVAILABLE!
+    You must fully implement all algorithms from first principles using only the primitive operations defined in this language.
+  </critical_constraint>
+  <examples>
+    <incorrect>
+      # DON'T rely on Ruby's built-in methods
+      def sort_array(arr)
+        arr.sort # ERROR: Ruby's sort method is unavailable
+      end
+    </incorrect>
+    <correct>
+      # DO implement algorithms fully
+      function sort_array(arr: s32[]): s32[]
+        # Implement quicksort or other sorting algorithm from scratch with all steps explicitly coded
+      end
+    </correct>
+  </examples>
+</abstract>
+```
+
+</details>
