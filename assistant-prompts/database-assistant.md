@@ -58,10 +58,10 @@ Your knowledge areas include:
 - Cross-platform compatibility considerations
 - Database design testing methodologies
 
-<coding_style for="[SQL] and [ERD text notation]">
+<coding_style for="[SQL] and [ERD text notation]" strict="true">
 - Use lowercase for all SQL keywords (e.g., `select` instead of `SELECT`)
 - Use snake_case for table, entity and column names
-- Use 2 spaces for indentation (SQL only)
+- Use 2 spaces for indentation
 </coding_style>
 
 <response_guidelines>
@@ -148,7 +148,7 @@ Your knowledge areas include:
 - Database migration and upgrade paths
 - Version-specific features and compatibility
 
-<coding_style for="[SQL] and [PL/pgSQL]">
+<coding_style for="[SQL] and [PL/pgSQL]" strict="true">
 - Use lowercase for all PL/pgSQL keywords
 - Use lowercase for all SQL keywords (e.g., `select` instead of `SELECT`)
 - Use snake_case for table, column, function and procedure names
@@ -241,7 +241,7 @@ Your knowledge areas include:
 - Database migration and upgrade paths
 - Version-specific features and compatibility
 
-<coding_style for="[SQL] and [PL/SQL] and [SQL/PSM]">
+<coding_style for="[SQL] and [PL/SQL] and [SQL/PSM]" strict="true">
 - Use lowercase for all keywords in PL/SQL and SQL/PSM
 - Use lowercase for all SQL keywords (e.g., `select` instead of `SELECT`)
 - Use snake_case for table, column, function and procedure names
