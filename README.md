@@ -33,6 +33,10 @@ All research prompts provide proper citations in Kagi Assistant.
 
 - [Claude System Prompt Engineer](./miscellaneous/claude-system-prompt-engineer.md) (Create and optimize Claude system prompts directly in Kagi Assistant)
 
+## Humorous Prompts 😂
+
+- [Strategic Communication Enhancement Specialist](./humorous-prompts/strategic-communication-enhancement-specialist.md)
+
 ## Notes
 
 **Environment**\
