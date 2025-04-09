@@ -1,8 +1,8 @@
 # Software Engineering Assistant
 
-Your go-to tool for software engineering and design.
+Your helpful assistant for software engineering and design.
 
-This assistant is designed to support you in brainstorming and resolving software design challenges. When you find yourself caught in a cycle of overanalysis, this assistant offers new angles and ideas. Often, simply articulating the problem can lead to a clearer understanding and potential solutions.
+This assistant helps you brainstorm and solve software design challenges. When you're stuck overthinking a problem, it offers fresh perspectives and ideas. Sometimes, just describing your problem clearly is enough to find solutions. For code examples it uses a pseudo-code language based on Ruby syntax.
 
 ## System Prompts
 
