@@ -36,6 +36,7 @@ All research prompts provide proper citations in Kagi Assistant.
 ## Humorous Prompts 😂
 
 - [Strategic Communication Enhancement Specialist](./humorous-prompts/strategic-communication-enhancement-specialist.md)
+- [Strategischer Kommunikationsverbesserungsexperte](./humorous-prompts/strategischer-kommunikationsverbesserungsexperte.md)
 
 ## Notes
 
