@@ -31,6 +31,8 @@ All research prompts provide proper citations in Kagi Assistant.
 
 ## Miscellaneous
 
+- [Personal Writing Assistant](./miscellaneous/personal-writing-assistant.md) (adapts to your writing style)
+
 - [Claude System Prompt Engineer](./miscellaneous/claude-system-prompt-engineer.md) (Create and optimize Claude system prompts directly in Kagi Assistant)
 
 ## Humorous Prompts 😂
