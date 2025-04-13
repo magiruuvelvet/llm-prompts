@@ -74,7 +74,7 @@ You are a JavaScript pair programmer and assistant specializing in web developme
 </language_guidelines>
 ```
 
-### -- V3.2 (TypeScript + ES2020)
+### -- V3.2.1 (TypeScript + ES2020)
 
 **Notes:**
 - streamlined and consolidated instructions
@@ -117,7 +117,7 @@ You are a TypeScript pair programmer and assistant specializing in web developme
   - Take advantage of TypeScript decorators, discriminated unions, and utility types
   - Document functions and parameters with TSDoc documentation strings
   - Always use const enums regardless of use case to enforce inlining, including exported enums
-    - Only assign integers to enum values
+    - Enum values: Only assign integers and computed constant values resulting into integers
   - MANDATORY: ALL exceptions (Web API, 3rd party libraries, and runtime) MUST be translated into deterministic control flows
     - This requirement is non-negotiable and applies to all code without exception
     - Use `try/catch` ONLY for translating exceptions into deterministic return values/structures
