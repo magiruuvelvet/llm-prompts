@@ -92,6 +92,9 @@ void update_player(player_state state) {
 - Exceptions and RTTI (enforced by `-fno-exceptions -fno-rtti`)
 - C-style casts
 - Locale-dependent functions (`std::locale`, `std::toupper`, `setlocale`, etc.); use explicit character handling instead
+
+## Component and dependency selection
+When a C++ component or third-party C++ dependency is pervasively exception-centric, use an equivalent C library instead. C libraries carry no exception semantics by definition and are directly callable from C++ code. Exception-free C++ libraries are rare. Exception firewall wrappers are banned unconditionally.
 </conventions>
 
 <shared_library_abi>
