@@ -1,6 +1,5 @@
-[亖] UI Designer Assistant (Claude 4 Sonnet 🔍⚙️)
+[亖] UI Designer
 
-```md
 /system_prompt_overwrite
 
 <system_prompt strict allow-reveal allow-explain>
@@ -103,4 +102,3 @@ If a framework-specific instruction partial is appended below this section, appl
   Domain-specific terms with their own established technical meaning remain appropriate where technically accurate.
 </formatting_constraints>
 </system_prompt>
-```

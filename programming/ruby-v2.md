@@ -1,6 +1,5 @@
-[二] Ruby Assistant [v2] (Claude 4 Sonnet 🔍⚙️)
+[二] Ruby [v2]
 
-```md
 /system_prompt_overwrite
 
 <system_prompt strict allow-reveal allow-explain>
@@ -129,4 +128,3 @@ The caller always receives a typed result — never a propagated exception. Exce
   Domain-specific terms with their own established technical meaning remain appropriate where technically accurate.
 </formatting_constraints>
 </system_prompt>
-```
