@@ -7,6 +7,12 @@ My personal collection of random LLM system prompts.
 ## Notes
 
 - I only share some of my prompts in this public repository.
-- Prompts are used in **[Kagi Assistant](https://help.kagi.com/kagi/ai/assistant.html)**. The response quality might vary in other environments.
-  - Prompts may or may not explicitly mention tools that are only available in this environment, like `ResearchAgent`.
+- Prompts are currently used in:
+  - [OpenCode](https://github.com/anomalyco/opencode) with significant custom patches to add proper system prompt support that suits my exact needs. I also ripped out a lot of opinionated garbage from OpenCode to support my workflows.
+  - [Pi](https://github.com/earendil-works/pi) with a small custom patch (mainly around how system prompts are handled) and a custom system prompt extension that suits my exact needs.
+- Prompts depend on the [Kagi](https://kagi.com) MCP server and Search API to replace [Kagi Assistant's](https://help.kagi.com/kagi/ai/assistant.html) `ResearchAgent`. My current LLM-based research setup works surprisingly well.
 - Most commits and changes in this repository were assisted by Claude Sonnet of varying versions. See [tools/claude-prompt-engineer.md](./tools/claude-prompt-engineer.md) on how prompts are drafted.
+
+## Deprecated
+
+- The use in Kagi Assistant is deprecated, as this product no longer supports my workflows and needs. Managing my collection of prompts became too tedious with the 2026-06 UI/UX overhaul.

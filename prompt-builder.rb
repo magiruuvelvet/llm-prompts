@@ -107,10 +107,6 @@ def scaffolding(title, content)
   # ensure a trailing newline so the closing tag always starts on its own line
   body = content.end_with?("\n") ? content : "#{content}\n"
   return <<~XML
-    #{title}
-
-    /system_prompt_overwrite
-
     <system_prompt strict allow-reveal allow-explain>
     #{body}</system_prompt>
   XML
