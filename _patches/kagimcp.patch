@@ -1,5 +1,5 @@
 diff --git a/src/kagimcp/server.py b/src/kagimcp/server.py
-index 56cb04e..0fb3ccd 100644
+index 56cb04e..3c65f18 100644
 --- a/src/kagimcp/server.py
 +++ b/src/kagimcp/server.py
 @@ -207,11 +207,11 @@ def kagi_search_fetch(
@@ -16,10 +16,11 @@ index 56cb04e..0fb3ccd 100644
      ),
      time_relative: Literal["day", "week", "month"] | None = Field(
          default=None,
-@@ -233,16 +233,7 @@ def kagi_search_fetch(
+@@ -232,18 +232,7 @@ def kagi_search_fetch(
+     lens_id: str | None = Field(
          default=None,
          description=(
-             "Apply a Kagi lens to narrow the search to a curated set of sources. "
+-            "Apply a Kagi lens to narrow the search to a curated set of sources. "
 -            "Built-in lens IDs: "
 -            "'2' (Academic — education/.edu domains), "
 -            "'1' (Forums — discussion forums across the web), "
@@ -30,16 +31,26 @@ index 56cb04e..0fb3ccd 100644
 -            "You may also pass a custom lens ID or full URL from https://kagi.com/settings/lenses "
 -            "(only shareable lenses work). "
 -            "Mutually exclusive with 'include_domains', 'exclude_domains', 'time_relative', "
-+            "Mutually exclusive with 'include_domains', 'exclude_domains', "
-             "and 'file_type'; use those args or 'lens_id', not both."
+-            "and 'file_type'; use those args or 'lens_id', not both."
++            "Apply a Kagi lens to narrow the search to a curated set of sources."
          ),
      ),
-@@ -265,7 +256,7 @@ def kagi_search_fetch(
-     if lens_id and any(v is not None for v in lens_fields.values()):
-         raise ValueError(
-             "'lens_id' is mutually exclusive with 'include_domains', 'exclude_domains', "
+ ) -> str:
+@@ -262,12 +251,11 @@ def kagi_search_fetch(
+         "time_relative": time_relative,
+         "file_type": file_type,
+     }
+-    if lens_id and any(v is not None for v in lens_fields.values()):
+-        raise ValueError(
+-            "'lens_id' is mutually exclusive with 'include_domains', 'exclude_domains', "
 -            "'time_relative', and 'file_type' (the server ignores 'lens_id' when any of "
-+            "and 'file_type' (the server ignores 'lens_id' when any of "
-             "those are set). Use one or the other."
-         )
+-            "those are set). Use one or the other."
+-        )
++
++    # some LLMs are stupid and somehow end up with <> in the lens_id parameter
++    if any(v in lens_id for v in r"<>"):
++        lens_id = None
++
      lens = (
+         SearchRequestLens(**lens_fields)
+         if any(value is not None for value in lens_fields.values())
