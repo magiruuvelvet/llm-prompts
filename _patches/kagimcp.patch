@@ -1,0 +1,45 @@
+diff --git a/src/kagimcp/server.py b/src/kagimcp/server.py
+index 56cb04e..0fb3ccd 100644
+--- a/src/kagimcp/server.py
++++ b/src/kagimcp/server.py
+@@ -207,11 +207,11 @@ def kagi_search_fetch(
+     ),
+     include_domains: list[str] | None = Field(
+         default=None,
+-        description="Restrict results to these domains (e.g., ['docs.python.org', 'github.com']). Overrides any 'site:' operators in the query.",
++        description="Restrict results to these domains (e.g., ['example1.com', 'example2.com']). Overrides any 'site:' operators in the query.",
+     ),
+     exclude_domains: list[str] | None = Field(
+         default=None,
+-        description="Exclude results from these domains (e.g., ['pinterest.com', 'quora.com']). Overrides any 'site:' operators in the query.",
++        description="Exclude results from these domains (e.g., ['example1.com', 'example2.com']). Overrides any 'site:' operators in the query.",
+     ),
+     time_relative: Literal["day", "week", "month"] | None = Field(
+         default=None,
+@@ -233,16 +233,7 @@ def kagi_search_fetch(
+         default=None,
+         description=(
+             "Apply a Kagi lens to narrow the search to a curated set of sources. "
+-            "Built-in lens IDs: "
+-            "'2' (Academic — education/.edu domains), "
+-            "'1' (Forums — discussion forums across the web), "
+-            "'15' (Programming — official programming language sites and forums), "
+-            "'29' (News 360 — multi-perspective coverage of global news), "
+-            "'120' (Recipes — high-quality recipe sites, English), "
+-            "'107' (Small Web — noncommercial domains and topics). "
+-            "You may also pass a custom lens ID or full URL from https://kagi.com/settings/lenses "
+-            "(only shareable lenses work). "
+-            "Mutually exclusive with 'include_domains', 'exclude_domains', 'time_relative', "
++            "Mutually exclusive with 'include_domains', 'exclude_domains', "
+             "and 'file_type'; use those args or 'lens_id', not both."
+         ),
+     ),
+@@ -265,7 +256,7 @@ def kagi_search_fetch(
+     if lens_id and any(v is not None for v in lens_fields.values()):
+         raise ValueError(
+             "'lens_id' is mutually exclusive with 'include_domains', 'exclude_domains', "
+-            "'time_relative', and 'file_type' (the server ignores 'lens_id' when any of "
++            "and 'file_type' (the server ignores 'lens_id' when any of "
+             "those are set). Use one or the other."
+         )
+     lens = (

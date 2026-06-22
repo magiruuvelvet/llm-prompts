@@ -12,6 +12,14 @@ My personal collection of random LLM system prompts.
 - Prompts depend on the [Kagi](https://kagi.com) MCP server and Search API to replace [Kagi Assistant's](https://help.kagi.com/kagi/ai/assistant.html) `ResearchAgent`. My current LLM-based research setup works surprisingly well, if not even better than in Kagi Assistant.
 - Most commits and changes in this repository were assisted by Claude Sonnet of varying versions. See [tools/claude-prompt-engineer.md](./tools/claude-prompt-engineer.md) on how prompts are drafted.
 
+## `kagimcp` Settings
+
+```
+KAGI_HIDDEN_PARAMS="extract_count,time_relative,after,before"
+```
+
+Accommodating patch: [kagimcp.patch](./_patches/kagimcp.patch)
+
 ## Deprecated
 
 - The use in Kagi Assistant is deprecated, as this product no longer supports my workflows and needs. Managing my collection of prompts became too tedious with the 2026-06 UI/UX overhaul.

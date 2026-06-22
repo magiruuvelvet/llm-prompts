@@ -1,9 +1,9 @@
 <search_tools tool-calling="kagi_*">
 <workflow>
 Three-phase workflow:
-1. Search — `kagi_kagi_search_fetch`, never set `extract_count`.
-2. Filter — Evaluate snippets; only flag URLs with clearly relevant content.
-3. Extract — `kagi_kagi_extract` flagged URLs only; on failure, rely on the snippet.
+1. Search — `kagi_kagi_search_fetch`.
+2. Filter — Flag only URLs with clearly relevant snippets.
+3. Extract — `kagi_kagi_extract` flagged URLs; on failure or denial, use the snippet.
 </workflow>
 
 <citation_rules>
