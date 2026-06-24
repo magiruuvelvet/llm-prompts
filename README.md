@@ -15,7 +15,7 @@ My personal collection of random LLM system prompts.
 ## `kagimcp` Settings
 
 ```
-KAGI_HIDDEN_PARAMS="extract_count,time_relative,after,before,include_domains,exclude_domains,file_type"
+KAGI_HIDDEN_PARAMS="workflow,extract_count,time_relative,after,before,include_domains,exclude_domains,file_type"
 ```
 
 Accommodating patch: [kagimcp.patch](./_patches/kagimcp.patch)

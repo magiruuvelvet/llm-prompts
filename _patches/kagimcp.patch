@@ -1,8 +1,13 @@
 diff --git a/src/kagimcp/server.py b/src/kagimcp/server.py
-index 56cb04e..1e0c5f4 100644
+index 56cb04e..6a56b9a 100644
 --- a/src/kagimcp/server.py
 +++ b/src/kagimcp/server.py
-@@ -207,11 +207,11 @@ def kagi_search_fetch(
+@@ -203,15 +203,15 @@ def kagi_search_fetch(
+         default=10,
+         ge=1,
+         le=1024,
+-        description="Maximum number of results per category. In the mixed 'search' workflow this caps each category independently, so the total can exceed this number; in single-category workflows it caps total results.",
++        description="Maximum number of results.",
      ),
      include_domains: list[str] | None = Field(
          default=None,
