@@ -1,0 +1,12 @@
+{
+    "name": "system-prompt-switcher",
+    "description": "Switch the active system prompt from your collection",
+    "keywords": ["pi-package"],
+    "type": "module",
+    "exports": "./index.ts",
+    "pi": {
+        "extensions": [
+            "./extensions/system-prompt-switcher.ts"
+        ]
+    }
+}
