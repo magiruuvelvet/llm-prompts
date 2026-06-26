@@ -1,0 +1,3 @@
+*.yaml linguist-detectable=true
+*.patch linguist-detectable=true
+*.md linguist-detectable=true
