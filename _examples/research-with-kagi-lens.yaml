@@ -1,0 +1,8 @@
+title: "🇦🇹 Austrian Government Services"
+filename: "research/austria-gov.md"
+tool_call_params: |
+  kagi_search_fetch.lens_id: the_public_shared_lens_id_string
+sections:
+  - sections/austria-gov.md
+  - builtin:newline
+  - ../_sections/kagi-search.md
