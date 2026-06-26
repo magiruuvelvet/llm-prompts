@@ -2,15 +2,90 @@ import { lstat, readdir, readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join, resolve, sep } from "node:path";
 import { Container, Spacer, Text, Editor, SelectList, Key, matchesKey } from "@earendil-works/pi-tui";
-import { DynamicBorder } from "@earendil-works/pi-coding-agent";
+import { DynamicBorder, isToolCallEventType } from "@earendil-works/pi-coding-agent";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import type { AutocompleteItem } from "@earendil-works/pi-tui";
 
 const SYSTEM_PROMPT_DIR: string = resolve(join(homedir(), ".pi", "agent", "systems"));
 const SYSTEM_PROMPT_EXT: string = ".md";
 
+type tool_call_params = Record<string, Record<string, string>>;
+
 // per-process current prompt
 let g_current_prompt: string = "default";
+
+// parsed tool params from the active prompt's front matter
+// layout: tool_name -> { param_name -> value }
+let g_current_params: tool_call_params = {};
+
+class tool_call_config {
+    // tool_name -> { param_name -> value }
+    params: tool_call_params;
+    // prompt content with the front matter block stripped
+    content: string;
+
+    constructor() {
+        this.params = {};
+        this.content = "";
+    }
+}
+
+function parse_tool_call_config(raw: string): tool_call_config {
+    const result = new tool_call_config();
+
+    // front matter must start at the very beginning of the file
+    if (!raw.startsWith("---")) {
+        result.content = raw;
+        return result;
+    }
+
+    // find the closing fence; it must be on its own line
+    const close = raw.indexOf("\n---", 3);
+    if (close === -1) {
+        result.content = raw;
+        return result;
+    }
+
+    const block = raw.slice(3, close); // text between the two fences
+    result.content = raw.slice(close + 4).trimStart(); // everything after the closing fence
+
+    for (const line of block.split('\n')) {
+        const trimmed = line.trim();
+        if (!trimmed) {
+            continue;
+        }
+
+        // require ": " as separator so bare colons in values don't break things
+        const colon = trimmed.indexOf(": ");
+        if (colon === -1) {
+            continue;
+        }
+
+        const key   = trimmed.slice(0, colon).trim();
+        const value = trimmed.slice(colon + 2).trim();
+
+        const dot = key.indexOf('.');
+        if (dot === -1) {
+            continue;
+        }
+
+        const tool_name  = key.slice(0, dot);
+        const param_name = key.slice(dot + 1);
+
+        if (!tool_name || !param_name) {
+            continue;
+        }
+
+        if (!result.params[tool_name]) {
+            result.params[tool_name] = {};
+        }
+
+        // allow empty values in parameters
+        result.params[tool_name][param_name] = value.trim();
+    }
+
+    return result;
+}
 
 function prompt_path(name: string): string | null {
     if (!name) {
@@ -107,11 +182,18 @@ async function load_selected_prompt() {
                 error: `System prompt not found: ${g_current_prompt}`,
             };
         }
+
+        const raw = await readFile(path, "utf8");
+        const fm = parse_tool_call_config(raw);
+
+        // publish the params so the tool_call hook can use them
+        g_current_params = fm.params;
+
         return {
             ok: true,
             name: g_current_prompt,
             path: path,
-            content: await readFile(path, "utf8"),
+            content: fm.content,
         };
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
@@ -203,6 +285,14 @@ class filterable_prompt_picker extends Container {
     }
 }
 
+function status_display(): string {
+    const tool_params = Object.keys(g_current_params).map((tool) =>
+        Object.keys(g_current_params[tool]).map((param) => `${tool}.${param}=${g_current_params[tool][param]}`)
+    ).flat().join(", ");
+
+    return `[system prompt: ${g_current_prompt}${tool_params ? `; ${tool_params}` : ""}]`;
+}
+
 export default async function system_prompt_switcher_extension(pi: ExtensionAPI): Promise<void> {
     // cache prompt list on extension start
     let prompts = await discover_system_prompts();
@@ -213,7 +303,7 @@ export default async function system_prompt_switcher_extension(pi: ExtensionAPI)
             return;
         }
 
-        ctx.ui.setStatus("system-prompt", `[system prompt: ${active_prompt.name}]`);
+        ctx.ui.setStatus("system-prompt", status_display());
     });
 
     pi.on("before_agent_start", async(_event, ctx) => {
@@ -225,6 +315,19 @@ export default async function system_prompt_switcher_extension(pi: ExtensionAPI)
         return {
             systemPrompt: active_prompt.content.trimEnd(),
         };
+    });
+
+    pi.on("tool_call", async(event, ctx) => {
+        for (const tool_name in g_current_params) {
+            if (!isToolCallEventType(tool_name, event)) {
+                continue;
+            }
+
+            const overrides = g_current_params[tool_name];
+            for (const param_name in overrides) {
+                event.input[param_name] = overrides[param_name];
+            }
+        }
     });
 
     const handler = async(args, ctx) => {
@@ -288,7 +391,7 @@ export default async function system_prompt_switcher_extension(pi: ExtensionAPI)
         // set the active system prompt
         active_prompt = await load_selected_prompt();
 
-        ctx.ui.setStatus("system-prompt", `[system prompt: ${result.name}]`);
+        ctx.ui.setStatus("system-prompt", status_display());
     };
 
     pi.registerCommand("system-prompt", {
