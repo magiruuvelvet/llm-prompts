@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require "yaml"
 require "fileutils"
@@ -24,6 +25,10 @@ class PromptConfig
   # Output filename relative to the build output directory. Supports subdirectory paths.
   # @return [String]
   attr_accessor :filename
+
+  # Key-value pairs in the format `tool_name.param_name: value` to define tool call overwrites.
+  # @return [String]
+  attr_accessor :tool_call_params
 
   # Ordered section identifiers, each a filename relative to the YAML file's directory.
   # @return [Array<String>]
@@ -62,10 +67,11 @@ def parse_config(yaml_path)
     return nil
   end
 
-  title    = data["title"]
-  filename = data["filename"]
-  sections = data["sections"]
-  patches  = data["patches"] || []
+  title            = data["title"]
+  filename         = data["filename"]
+  tool_call_params = data["tool_call_params"] || ""
+  sections         = data["sections"]
+  patches          = data["patches"] || []
 
   unless title.is_a?(String)
     $stderr.puts("error: '#{yaml_path}': 'title' must be a string")
@@ -74,6 +80,11 @@ def parse_config(yaml_path)
 
   unless filename.is_a?(String)
     $stderr.puts("error: '#{yaml_path}': 'filename' must be a string")
+    return nil
+  end
+
+  unless tool_call_params.is_a?(String)
+    $strerr.puts("error: '#{yaml_path}': 'tool_call_params' must be a string (HEREDOC)")
     return nil
   end
 
@@ -90,6 +101,7 @@ def parse_config(yaml_path)
   config = PromptConfig.new
   config.title = title
   config.filename = filename
+  config.tool_call_params = tool_call_params.strip
   config.sections = sections
   config.patches = patches
   return config
@@ -100,16 +112,26 @@ end
 
 # Wraps assembled section content in the standard system prompt scaffolding.
 #
-# @param [String] title the prompt title line placed before the XML block
+# @param [PromptConfig] config
 # @param [String] content the assembled, ordered section content to embed
 # @return [String] the complete scaffolded prompt string
-def scaffolding(title, content)
+def scaffolding(config, content)
+  # the header is consumed by the prompt switcher extension and is not part of the LLM message
+  header = String.new("")
+
   # ensure a trailing newline so the closing tag always starts on its own line
   body = content.end_with?("\n") ? content : "#{content}\n"
-  return <<~XML
-    <system_prompt strict allow-reveal allow-explain>
-    #{body}</system_prompt>
-  XML
+
+  if config.tool_call_params.length > 0
+    header << <<~MD
+      ---
+      #{config.tool_call_params}
+      ---
+
+    MD
+  end
+
+  return "#{header}<system_prompt strict allow-reveal allow-explain>\n#{body}</system_prompt>\n"
 end
 
 # Reads and concatenates section files in order using POSIX cat semantics.
@@ -186,7 +208,7 @@ def build(yaml_path, output_dir)
   content = read_sections(config.sections, yaml_dir)
   return BuildStatus::SectionReadError if content.nil?
 
-  output = scaffolding(config.title, content)
+  output = scaffolding(config, content)
   output_path = File.join(output_dir, config.filename)
 
   return BuildStatus::WriteError unless write_output(output, output_path)
