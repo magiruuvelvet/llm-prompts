@@ -1,5 +1,5 @@
 diff --git a/src/kagimcp/server.py b/src/kagimcp/server.py
-index 56cb04e..6a56b9a 100644
+index 56cb04e..9cad66d 100644
 --- a/src/kagimcp/server.py
 +++ b/src/kagimcp/server.py
 @@ -203,15 +203,15 @@ def kagi_search_fetch(
@@ -21,10 +21,11 @@ index 56cb04e..6a56b9a 100644
      ),
      time_relative: Literal["day", "week", "month"] | None = Field(
          default=None,
-@@ -232,18 +232,7 @@ def kagi_search_fetch(
+@@ -231,20 +231,7 @@ def kagi_search_fetch(
+     ),
      lens_id: str | None = Field(
          default=None,
-         description=(
+-        description=(
 -            "Apply a Kagi lens to narrow the search to a curated set of sources. "
 -            "Built-in lens IDs: "
 -            "'2' (Academic — education/.edu domains), "
@@ -37,11 +38,12 @@ index 56cb04e..6a56b9a 100644
 -            "(only shareable lenses work). "
 -            "Mutually exclusive with 'include_domains', 'exclude_domains', 'time_relative', "
 -            "and 'file_type'; use those args or 'lens_id', not both."
-+            "Apply a Kagi lens to narrow the search to a curated set of sources."
-         ),
+-        ),
++        description="",
      ),
  ) -> str:
-@@ -262,12 +251,11 @@ def kagi_search_fetch(
+     """Fetch web results for a query using the Kagi Search API. Use for general search and when the user explicitly tells you to 'fetch' results/information. Results are numbered so that a user may refer to a result by a specific number."""
+@@ -262,12 +249,11 @@ def kagi_search_fetch(
          "time_relative": time_relative,
          "file_type": file_type,
      }
