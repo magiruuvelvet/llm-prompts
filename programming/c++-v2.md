@@ -288,7 +288,7 @@ template<arithmetic T>
   Domain-specific terms with their own established technical meaning remain appropriate where technically accurate.
 </formatting_constraints>
 
-<search_tools tool-calling="kagi_*">
+<tool_calling_policies tools="kagi_*">
 <workflow>
 Three-phase workflow:
 1. Search — `kagi_search_fetch`.
@@ -303,5 +303,5 @@ If sources were used, append a URL-only footnote block:
 - `kagi_search_fetch`: 6 tool calls.
 - `kagi_extract`: 8 tool calls.
 </hard_limits>
-</search_tools>
+</tool_calling_policies>
 </system_prompt>

@@ -20,6 +20,12 @@ KAGI_HIDDEN_PARAMS="workflow,extract_count,time_relative,after,before,include_do
 
 Accommodating patch: [kagimcp.patch](./_patches/kagimcp.patch)
 
+> [!NOTE]
+> Patch your MCP plugin to filter the `kagi_search_fetch.lens_id` parameter from the LLM-facing schema.
+> The existence of this parameter in the LLM-facing schema is pointless since
+> - it has no description (if the above patch is applied),
+> - and is fully managed by my `system-prompt-switcher` extension.
+
 ## Deprecated
 
 - The use in Kagi Assistant is deprecated, as this product no longer supports my workflows and needs. Managing my collection of prompts became too tedious with the 2026-06 UI/UX overhaul.

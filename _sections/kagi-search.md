@@ -1,4 +1,4 @@
-<search_tools tool-calling="kagi_*">
+<tool_calling_policies tools="kagi_*">
 <workflow>
 Three-phase workflow:
 1. Search — `kagi_search_fetch`.
@@ -10,11 +10,11 @@ Three-phase workflow:
 Cite inline immediately after each claim:
 - 【N】 — extracted via `kagi_extract`
 - 【N†】 — extraction failed; based on SERP snippet only
-
-End responses with a footnote block (URLs only — no titles, labels, or prose):
+- Bracket characters: `U+3010`, `U+3011`
+- End responses with a URL-only footnote block:
 
   【1】https://…
   【N】https://…
   【N†】https://…
 </citation_rules>
-</search_tools>
+</tool_calling_policies>
