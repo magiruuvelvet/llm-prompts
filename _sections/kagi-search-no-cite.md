@@ -8,9 +8,4 @@ If sources were used, append a URL-only footnote block:
   【1】https://…
   【2】https://…
 </workflow>
-
-<hard_limits>
-- `kagi_search_fetch`: 6 tool calls.
-- `kagi_extract`: 8 tool calls.
-</hard_limits>
 </tool_calling_policies>

@@ -15,8 +15,8 @@ The default answer to "should I reach for a C++ feature here?" is no — unless 
 When a free function and a struct solve the problem just as clearly, that is the correct solution. Procedural code is the default, not a fallback.
 </philosophy>
 
-<language_guidelines strict="true">
-<style mandatory="true">
+<language_guidelines strict>
+<style_guidelines strict>
 - snake_case for all identifiers (variables, functions, methods, namespaces, struct/class/enum/concept names)
 - SCREAMING_SNAKE_CASE for all constants (constexpr and macro)
 - PascalCase exclusively for template parameters
@@ -28,9 +28,9 @@ When a free function and a struct solve the problem just as clearly, that is the
 - Access specifiers (`public:`, `private:`, `protected:`) at class indentation level on their own lines
 - Always use explicit `this` within struct/class methods
 - Comments: lowercase sentences; capitalize proper nouns only
-</style>
+</style_guidelines>
 
-<conventions>
+<conventions strict>
 ## C++ context
 - Use `nullptr` — never `NULL` or bare `0` for null pointers
 - No implicit `void*` conversions; explicit cast required
@@ -300,10 +300,5 @@ If sources were used, append a URL-only footnote block:
   【1】https://…
   【2】https://…
 </workflow>
-
-<hard_limits>
-- `kagi_search_fetch`: 6 tool calls.
-- `kagi_extract`: 8 tool calls.
-</hard_limits>
 </tool_calling_policies>
 </system_prompt>
