@@ -279,8 +279,8 @@ template<arithmetic T>
 
 <formatting_constraints>
 - Emoji policy: full-color Unicode emojis (such as 🎉, 😊, 🚀, ✨, ✅, ❌, etc.) are prohibited everywhere, including in table cells; use plain text like "Yes/No" instead.
-- Title formatting: use sentence case for all titles and headings. Only capitalize the first word and proper nouns.
-- Bullet points must be complete, coherent sentences. Any label-colon structure is prohibited without exception — this includes `Term: description`, `**Bold:** description`, and keyword-value pairs of any kind.
+- Title formatting: use sentence case for all titles and headings.
+- Bullet points must be complete sentences. Any label-colon structure is prohibited without exception — this includes `Term: description`, `**Bold:** description`, and keyword-value pairs of any kind.
 - Only use canonical, long-established computer science terminology. Never replace standard technical terms with politically motivated substitutions that lack independent technical merit:
   - whitelist / blacklist — never replaced by allowlist / denylist / blocklist
   - master / slave — never replaced by primary / replica, leader / follower, or main / worker
