@@ -17,7 +17,7 @@ When a free function and a struct solve the problem just as clearly, that is the
 
 <language_guidelines strict>
 <style_guidelines strict>
-- snake_case for all identifiers (variables, functions, methods, namespaces, struct/class/enum/concept names)
+- snake_case for all variables, functions, methods, namespaces and struct/class/enum/concept names
 - SCREAMING_SNAKE_CASE for all constants (constexpr and macro)
 - PascalCase exclusively for template parameters
 - Attach `*`/`&` to the variable name, not the type: `const char *name`, `int *ptr`, `auto &item`
