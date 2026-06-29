@@ -1,13 +1,31 @@
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import type { AutocompleteItem } from "@earendil-works/pi-tui";
+import { isToolCallEventType } from "@earendil-works/pi-coding-agent";
 import { lstat, readdir, readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join, resolve, sep } from "node:path";
-import { Container, Spacer, Text, Editor, SelectList, Key, matchesKey } from "@earendil-works/pi-tui";
-import { DynamicBorder, isToolCallEventType } from "@earendil-works/pi-coding-agent";
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import type { AutocompleteItem } from "@earendil-works/pi-tui";
+import { filterable_prompt_picker } from "./components/prompt-picker";
 
 const SYSTEM_PROMPT_DIR: string = resolve(join(homedir(), ".pi", "agent", "systems"));
 const SYSTEM_PROMPT_EXT: string = ".md";
+
+const KAGI_TOOLS = Object.freeze([
+    "kagi_search_fetch",
+    "kagi_extract",
+]);
+
+const KAGI_OP = Object.freeze({
+    ENABLE: "enable",
+    DISABLE: "disable",
+});
+
+const KAGI_ARGS = [{
+    value: KAGI_OP.ENABLE,
+    label: "enable — Enable Kagi tools",
+}, {
+    value: KAGI_OP.DISABLE,
+    label: "disable — Disable Kagi tools",
+}];
 
 type tool_call_params = Record<string, Record<string, string>>;
 
@@ -17,6 +35,9 @@ let g_current_prompt: string = "default";
 // parsed tool params from the active prompt's front matter
 // layout: tool_name -> { param_name -> value }
 let g_current_params: tool_call_params = {};
+
+// current Kagi tool state
+let g_kagi_tool_state: boolean = false;
 
 class tool_call_config {
     // tool_name -> { param_name -> value }
@@ -204,93 +225,18 @@ async function load_selected_prompt() {
     }
 }
 
-class custom_select_list extends SelectList {
-    public override setFilter(filter: string) {
-        this.filteredItems = this.items.filter((item) => item.value.toLowerCase().includes(filter.toLowerCase()));
-        this.selectedIndex = 0;
-    }
-}
 
-class filterable_prompt_picker extends Container {
-    private readonly filter_input;
-    private readonly select_list;
-    private current_item;
 
-    constructor(items, tui, theme, on_select: (value: string) => void, on_cancel: () => void) {
-        super();
-
-        this.filter_input = new Editor(tui, {
-            borderColor: (s) => theme.fg("accent", s),
-            selectList: {
-                selectedPrefix: (t) => theme.fg("accent", t),
-                selectedText: (t) => theme.fg("accent", t),
-                description: (t) => theme.fg("muted", t),
-                scrollInfo: (t) => theme.fg("dim", t),
-                noMatch: (t) => theme.fg("warning", t),
-            },
-        });
-        this.filter_input.onChange = (value: string) => {
-            this.select_list.setFilter(value);
-        };
-
-        this.addChild(this.filter_input);
-        this.addChild(new Spacer(1));
-        this.addChild(new Text(theme.fg("accent", theme.bold("System Prompts")), 2, 0));
-        this.addChild(new Spacer(1));
-
-        this.current_item = items[0];
-        this.select_list = new custom_select_list(items, 1000, {
-            selectedPrefix: (text) => theme.fg("accent", text),
-            selectedText: (text) => theme.fg("accent", text),
-            description: (text) => theme.fg("muted", text),
-            scrollInfo: (text) => theme.fg("dim", text),
-            noMatch: (text) => theme.fg("warning", text),
-        });
-        this.select_list.onSelect = (item) => {
-            // UPSTREAM BUG?: item points to the very first item (before filter) in the list???
-            const ritem = this.select_list.filteredItems[this.select_list.selectedIndex];
-            ritem && on_select(ritem.value);
-        };
-        this.select_list.onCancel = on_cancel;
-        this.select_list.onSelectionChange = (item) => {
-            this.current_item = item;
-        };
-        this.addChild(this.select_list);
-
-        this.addChild(new Spacer(1));
-        this.addChild(new Text(theme.fg("dim", "type to filter • ↑↓ navigate • enter select • esc cancel"), 2, 0));
-        this.addChild(new Spacer(1));
-        this.addChild(new DynamicBorder((s) => theme.fg("border", s)));
-    }
-
-    public override handleInput(data: string): void {
-        if (matchesKey(data, Key.escape)) {
-            this.select_list.onCancel?.();
-            return;
-        }
-
-        if (matchesKey(data, Key.enter)) {
-            if (this.current_item) {
-                this.select_list.onSelect?.(this.current_item);
-            }
-            return;
-        }
-
-        if (matchesKey(data, Key.up) || matchesKey(data, Key.down)) {
-            this.select_list.handleInput(data);
-            return;
-        }
-
-        this.filter_input.handleInput(data);
-    }
-}
-
-function status_display(): string {
+function prompt_status_display(): string {
     const tool_params = Object.keys(g_current_params).map((tool) =>
         Object.keys(g_current_params[tool]).map((param) => `${tool}.${param}=${g_current_params[tool][param]}`)
     ).flat().join(", ");
 
     return `[system prompt: ${g_current_prompt}${tool_params ? `; ${tool_params}` : ""}]`;
+}
+
+function kagi_status_display(): string {
+    return `[\x1b[1m\x1b[38;2;177;124;17mKagi\x1b[0m: ${g_kagi_tool_state ? "🟢" : "🔴"}]`;
 }
 
 export default async function system_prompt_switcher_extension(pi: ExtensionAPI): Promise<void> {
@@ -303,7 +249,10 @@ export default async function system_prompt_switcher_extension(pi: ExtensionAPI)
             return;
         }
 
-        ctx.ui.setStatus("system-prompt", status_display());
+        ctx.ui.setStatus("system-prompt", prompt_status_display());
+
+        g_kagi_tool_state = pi.getActiveTools().some((tool) => KAGI_TOOLS.includes(tool));
+        ctx.ui.setStatus("kagi", kagi_status_display());
     });
 
     pi.on("before_agent_start", async(_event, ctx) => {
@@ -391,9 +340,15 @@ export default async function system_prompt_switcher_extension(pi: ExtensionAPI)
         // set the active system prompt
         active_prompt = await load_selected_prompt();
 
-        ctx.ui.setStatus("system-prompt", status_display());
+        ctx.ui.setStatus("system-prompt", prompt_status_display());
     };
 
+    // FIXME: not working properly - figure out how to run custom slash commands via shortcuts
+    //        (like the built-in model picker)
+    // pi.registerShortcut("ctrl+p", {
+    //     description: "Switch the active system prompt from your collection",
+    //     handler: async(ctx) => await handler("", ctx),
+    // });
     pi.registerCommand("system-prompt", {
         description: "Switch the active system prompt from your collection",
         handler: async(args, ctx) => await handler(args, ctx),
@@ -402,6 +357,35 @@ export default async function system_prompt_switcher_extension(pi: ExtensionAPI)
                 value: i,
                 label: i,
             })) || null;
+        },
+    });
+
+    pi.registerCommand("kagi", {
+        description: "Toggle Kagi tools on/off",
+        getArgumentCompletions: (prefix: string): AutocompleteItem[] | null => {
+            return KAGI_ARGS.filter((i) => i.value.startsWith(prefix));
+        },
+        handler: async(args, ctx) => {
+            let op = args.trim();
+
+            // toggle active state
+            if (op.length === 0) {
+                op = g_kagi_tool_state ? KAGI_OP.DISABLE : KAGI_OP.ENABLE;
+            }
+
+            switch (op) {
+                case KAGI_OP.ENABLE: {
+                    pi.setActiveTools([...new Set([...pi.getActiveTools(), ...KAGI_TOOLS])]);
+                    g_kagi_tool_state = true;
+                } break;
+
+                case KAGI_OP.DISABLE: {
+                    pi.setActiveTools(pi.getActiveTools().filter((tool) => !tool.startsWith("kagi_")));
+                    g_kagi_tool_state = false;
+                } break;
+            }
+
+            ctx.ui.setStatus("kagi", kagi_status_display());
         },
     });
 }
