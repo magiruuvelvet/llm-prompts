@@ -60,6 +60,20 @@ index 81489b28..092ed4ad 100644
  		"build:binary": "npm --prefix ../tui run build && npm --prefix ../ai run build && npm --prefix ../agent run build && npm run build && bun build --compile ./dist/bun/cli.js ./src/utils/image-resize-worker.ts --outfile dist/pi && npm run copy-binary-assets",
  		"copy-assets": "shx mkdir -p dist/modes/interactive/theme && shx cp src/modes/interactive/theme/*.json dist/modes/interactive/theme/ && shx mkdir -p dist/modes/interactive/assets && shx cp src/modes/interactive/assets/*.png dist/modes/interactive/assets/ && shx mkdir -p dist/core/export-html/vendor && shx cp src/core/export-html/template.html src/core/export-html/template.css src/core/export-html/template.js dist/core/export-html/ && shx cp src/core/export-html/vendor/*.js dist/core/export-html/vendor/",
  		"copy-binary-assets": "shx cp package.json dist/ && shx cp README.md dist/ && shx cp CHANGELOG.md dist/ && shx mkdir -p dist/theme && shx cp src/modes/interactive/theme/*.json dist/theme/ && shx mkdir -p dist/assets && shx cp src/modes/interactive/assets/*.png dist/assets/ && shx mkdir -p dist/export-html/vendor && shx cp src/core/export-html/template.html dist/export-html/ && shx cp src/core/export-html/vendor/*.js dist/export-html/vendor/ && shx cp -r docs dist/ && shx cp -r examples dist/ && shx cp ../../node_modules/@silvia-odwyer/photon-node/photon_rs_bg.wasm dist/",
+diff --git a/packages/coding-agent/src/core/slash-commands.ts b/packages/coding-agent/src/core/slash-commands.ts
+index 77dd79aa..8a03f6cb 100644
+--- a/packages/coding-agent/src/core/slash-commands.ts
++++ b/packages/coding-agent/src/core/slash-commands.ts
+@@ -30,9 +30,6 @@ export const BUILTIN_SLASH_COMMANDS: ReadonlyArray<BuiltinSlashCommand> = [
+ 	{ name: "fork", description: "Create a new fork from a previous user message" },
+ 	{ name: "clone", description: "Duplicate the current session at the current position" },
+ 	{ name: "tree", description: "Navigate session tree (switch branches)" },
+-	{ name: "trust", description: "Save project trust decision for future sessions" },
+-	{ name: "login", description: "Configure provider authentication" },
+-	{ name: "logout", description: "Remove provider authentication" },
+ 	{ name: "new", description: "Start a new session" },
+ 	{ name: "compact", description: "Manually compact the session context" },
+ 	{ name: "resume", description: "Resume a different session" },
 diff --git a/packages/coding-agent/src/core/system-prompt.ts b/packages/coding-agent/src/core/system-prompt.ts
 index 7580782b..8a1fb4f6 100644
 --- a/packages/coding-agent/src/core/system-prompt.ts
@@ -82,11 +96,91 @@ index 7580782b..8a1fb4f6 100644
  	return prompt;
 +*/
  }
+diff --git a/packages/coding-agent/src/modes/interactive/components/assistant-message.ts b/packages/coding-agent/src/modes/interactive/components/assistant-message.ts
+index 32276467..e69759af 100644
+--- a/packages/coding-agent/src/modes/interactive/components/assistant-message.ts
++++ b/packages/coding-agent/src/modes/interactive/components/assistant-message.ts
+@@ -90,7 +90,7 @@ export class AssistantMessageComponent extends Container {
+ 			if (content.type === "text" && content.text.trim()) {
+ 				// Assistant text messages with no background - trim the text
+ 				// Set paddingY=0 to avoid extra spacing before tool executions
+-				this.contentContainer.addChild(new Markdown(content.text.trim(), 1, 0, this.markdownTheme));
++				this.contentContainer.addChild(new Markdown(content.text.trim(), 0, 0, this.markdownTheme));
+ 			} else if (content.type === "thinking" && content.thinking.trim()) {
+ 				// Add spacing only when another visible assistant content block follows.
+ 				// This avoids a superfluous blank line before separately-rendered tool execution blocks.
+@@ -109,7 +109,7 @@ export class AssistantMessageComponent extends Container {
+ 				} else {
+ 					// Thinking traces in thinkingText color, italic
+ 					this.contentContainer.addChild(
+-						new Markdown(content.thinking.trim(), 1, 0, this.markdownTheme, {
++						new Markdown(content.thinking.trim(), 0, 0, this.markdownTheme, {
+ 							color: (text: string) => theme.fg("thinkingText", text),
+ 							italic: true,
+ 						}),
+diff --git a/packages/coding-agent/src/modes/interactive/components/model-selector.ts b/packages/coding-agent/src/modes/interactive/components/model-selector.ts
+index 32711929..c12a6f33 100644
+--- a/packages/coding-agent/src/modes/interactive/components/model-selector.ts
++++ b/packages/coding-agent/src/modes/interactive/components/model-selector.ts
+@@ -87,18 +87,6 @@ export class ModelSelectorComponent extends Container implements Focusable {
+ 		this.addChild(new DynamicBorder());
+ 		this.addChild(new Spacer(1));
+ 
+-		// Add hint about model filtering
+-		if (scopedModels.length > 0) {
+-			this.scopeText = new Text(this.getScopeText(), 0, 0);
+-			this.addChild(this.scopeText);
+-			this.scopeHintText = new Text(this.getScopeHintText(), 0, 0);
+-			this.addChild(this.scopeHintText);
+-		} else {
+-			const hintText = "Only showing models from configured providers. Use /login to add providers.";
+-			this.addChild(new Text(theme.fg("warning", hintText), 0, 0));
+-		}
+-		this.addChild(new Spacer(1));
+-
+ 		// Create search input
+ 		this.searchInput = new Input();
+ 		if (initialSearchInput) {
+diff --git a/packages/coding-agent/src/modes/interactive/components/user-message.ts b/packages/coding-agent/src/modes/interactive/components/user-message.ts
+index 45d65577..2cb1db05 100644
+--- a/packages/coding-agent/src/modes/interactive/components/user-message.ts
++++ b/packages/coding-agent/src/modes/interactive/components/user-message.ts
+@@ -13,7 +13,7 @@ export class UserMessageComponent extends Container {
+ 
+ 	constructor(text: string, markdownTheme: MarkdownTheme = getMarkdownTheme()) {
+ 		super();
+-		this.contentBox = new Box(1, 1, (content: string) => theme.bg("userMessageBg", content));
++		this.contentBox = new Box(0, 1, (content: string) => theme.bg("userMessageBg", content));
+ 		this.contentBox.addChild(
+ 			new Markdown(
+ 				text,
 diff --git a/packages/coding-agent/src/modes/interactive/interactive-mode.ts b/packages/coding-agent/src/modes/interactive/interactive-mode.ts
-index 100feb6b..4b8d6f6f 100644
+index 100feb6b..364cbb8b 100644
 --- a/packages/coding-agent/src/modes/interactive/interactive-mode.ts
 +++ b/packages/coding-agent/src/modes/interactive/interactive-mode.ts
-@@ -2658,8 +2658,9 @@ export class InteractiveMode {
+@@ -2599,21 +2599,6 @@ export class InteractiveMode {
+ 				this.editor.setText("");
+ 				return;
+ 			}
+-			if (text === "/trust") {
+-				this.showTrustSelector();
+-				this.editor.setText("");
+-				return;
+-			}
+-			if (text === "/login") {
+-				this.showOAuthSelector("login");
+-				this.editor.setText("");
+-				return;
+-			}
+-			if (text === "/logout") {
+-				this.showOAuthSelector("logout");
+-				this.editor.setText("");
+-				return;
+-			}
+ 			if (text === "/new") {
+ 				this.editor.setText("");
+ 				await this.handleClearCommand();
+@@ -2658,8 +2643,9 @@ export class InteractiveMode {
  
  			// Handle bash command (! for normal, !! for excluded from context)
  			if (text.startsWith("!")) {
@@ -98,6 +192,22 @@ index 100feb6b..4b8d6f6f 100644
  				if (command) {
  					if (this.session.isBashRunning) {
  						this.showWarning("A bash command is already running. Press Esc to cancel it first.");
+@@ -5317,13 +5303,13 @@ export class InteractiveMode {
+ 	private async handleCopyCommand(): Promise<void> {
+ 		const text = this.session.getLastAssistantText();
+ 		if (!text) {
+-			this.showError("No agent messages to copy yet.");
++			this.showError("No token predictor messages to copy yet.");
+ 			return;
+ 		}
+ 
+ 		try {
+ 			await copyToClipboard(text);
+-			this.showStatus("Copied last agent message to clipboard");
++			this.showStatus("Copied last token predictor message to clipboard");
+ 		} catch (error) {
+ 			this.showError(error instanceof Error ? error.message : String(error));
+ 		}
 diff --git a/packages/coding-agent/src/utils/tools-manager.ts b/packages/coding-agent/src/utils/tools-manager.ts
 index 09d9a119..4ec62031 100644
 --- a/packages/coding-agent/src/utils/tools-manager.ts

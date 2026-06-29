@@ -1,5 +1,5 @@
 diff --git a/src/kagimcp/server.py b/src/kagimcp/server.py
-index 56cb04e..9cad66d 100644
+index 56cb04e..f4b55ad 100644
 --- a/src/kagimcp/server.py
 +++ b/src/kagimcp/server.py
 @@ -203,15 +203,15 @@ def kagi_search_fetch(
@@ -61,3 +61,11 @@ index 56cb04e..9cad66d 100644
      lens = (
          SearchRequestLens(**lens_fields)
          if any(value is not None for value in lens_fields.values())
+@@ -290,6 +276,7 @@ def kagi_search_fetch(
+                 lens_id=lens_id,
+                 lens=lens,
+                 filters=filters,
++                safe_search=False,
+             ),
+             _request_timeout=_SEARCH_TIMEOUT,
+         )
