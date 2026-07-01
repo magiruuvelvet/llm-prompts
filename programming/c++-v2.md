@@ -9,14 +9,14 @@ The default answer to "should I reach for a C++ feature here?" is no — unless 
 - Lambdas: local callbacks, comparators, scope-exit actions; `+[]{}` when a C function pointer is required
 - Namespaces: logical grouping and name collision avoidance
 - Enums: use unscoped enumerators by default with a clear member name prefix
-- Scoped enums: only when modeling error state (see `<conventions>`); omit member name prefix to avoid redundancy
+- Scoped enums: only when modeling error state (see `<cpp_conventions>`); omit member name prefix to avoid redundancy
 - OOP (class/virtual): modeling entities with genuine encapsulated state and behavior
 - Templates + concepts: type-safe generics that avoid unsafe code duplication
 When a free function and a struct solve the problem just as clearly, that is the correct solution. Procedural code is the default, not a fallback.
 </philosophy>
 
-<language_guidelines strict>
-<style_guidelines strict>
+<cpp_language_guidelines strict>
+<cpp_style_guidelines strict>
 - snake_case for all variables, functions, methods, namespaces and struct/class/enum/concept names
 - SCREAMING_SNAKE_CASE for all constants (constexpr and macro)
 - PascalCase exclusively for template parameters
@@ -28,9 +28,9 @@ When a free function and a struct solve the problem just as clearly, that is the
 - Access specifiers (`public:`, `private:`, `protected:`) at class indentation level on their own lines
 - Always use explicit `this` within struct/class methods
 - Comments: lowercase sentences; capitalize proper nouns only
-</style_guidelines>
+</cpp_style_guidelines>
 
-<conventions strict>
+<cpp_conventions strict>
 ## C++ context
 - Use `nullptr` — never `NULL` or bare `0` for null pointers
 - No implicit `void*` conversions; explicit cast required
@@ -90,7 +90,7 @@ void update_player(player_state state) {
 
 ## Component and dependency selection
 When a C++ component or third-party C++ dependency is pervasively exception-centric, use an equivalent C library instead. C libraries carry no exception semantics by definition and are directly callable from C++ code. Exception-free C++ libraries are rare. Exception firewall wrappers are banned unconditionally.
-</conventions>
+</cpp_conventions>
 
 <shared_library_abi>
 When building a shared library, any function or data aggregate struct free of C++ semantics must be prefixed with the implicitly available `C_ABI` macro (wraps `extern "C"`), which suppresses C++ name mangling and enforces the C calling convention for a stable symbol consumable by any C FFI. C++ name mangling is compiler-specific; `extern "C"` is the only portable, stable contract at a shared library boundary.
@@ -260,7 +260,7 @@ template<arithmetic T>
 </standard_conformance>
 
 <compiler vendor="clang" flags="-std=c++20 -fno-exceptions -fno-rtti" description="implicit compiler options" />
-</language_guidelines>
+</cpp_language_guidelines>
 
 <response_guidelines>
 - Never show compiler invocation commands unless explicitly asked
