@@ -24,8 +24,21 @@ index 240209ae..1a277df2 100644
  		"test": "vitest --run",
  		"prepublishOnly": "npm run clean && npm run build"
  	},
+diff --git a/packages/ai/src/providers/anthropic.ts b/packages/ai/src/providers/anthropic.ts
+index 4c385787..cffc5f2b 100644
+--- a/packages/ai/src/providers/anthropic.ts
++++ b/packages/ai/src/providers/anthropic.ts
+@@ -154,7 +154,7 @@ function convertContentBlocks(content: (TextContent | ImageContent)[]):
+ 	if (!hasText) {
+ 		blocks.unshift({
+ 			type: "text" as const,
+-			text: "(see attached image)",
++			text: "",
+ 		});
+ 	}
+ 
 diff --git a/packages/ai/src/providers/openai-completions.ts b/packages/ai/src/providers/openai-completions.ts
-index b257f96e..1b82518a 100644
+index b257f96e..d170a177 100644
 --- a/packages/ai/src/providers/openai-completions.ts
 +++ b/packages/ai/src/providers/openai-completions.ts
 @@ -571,12 +571,12 @@ function buildParams(
@@ -47,6 +60,28 @@ index b257f96e..1b82518a 100644
  	}
  
  	if (options?.temperature !== undefined) {
+@@ -1040,7 +1040,7 @@ export function convertMessages(
+ 				// Some providers require the 'name' field in tool results
+ 				const toolResultMsg: ChatCompletionToolMessageParam = {
+ 					role: "tool",
+-					content: sanitizeSurrogates(hasText ? textResult : "(see attached image)"),
++					content: sanitizeSurrogates(hasText ? textResult : ""),
+ 					tool_call_id: toolMsg.toolCallId,
+ 				};
+ 				if (compat.requiresToolResultName && toolMsg.toolName) {
+diff --git a/packages/ai/src/providers/openai-responses-shared.ts b/packages/ai/src/providers/openai-responses-shared.ts
+index 6fd59a44..2a7344ca 100644
+--- a/packages/ai/src/providers/openai-responses-shared.ts
++++ b/packages/ai/src/providers/openai-responses-shared.ts
+@@ -251,7 +251,7 @@ export function convertResponsesMessages<TApi extends Api>(
+ 
+ 				output = contentParts;
+ 			} else {
+-				output = sanitizeSurrogates(hasText ? textResult : "(see attached image)");
++				output = sanitizeSurrogates(hasText ? textResult : "");
+ 			}
+ 
+ 			messages.push({
 diff --git a/packages/coding-agent/package.json b/packages/coding-agent/package.json
 index 81489b28..092ed4ad 100644
 --- a/packages/coding-agent/package.json
@@ -141,6 +176,28 @@ index 32711929..c12a6f33 100644
  		// Create search input
  		this.searchInput = new Input();
  		if (initialSearchInput) {
+diff --git a/packages/coding-agent/src/modes/interactive/components/tree-selector.ts b/packages/coding-agent/src/modes/interactive/components/tree-selector.ts
+index 8bcdc2fb..50f1e6ba 100644
+--- a/packages/coding-agent/src/modes/interactive/components/tree-selector.ts
++++ b/packages/coding-agent/src/modes/interactive/components/tree-selector.ts
+@@ -796,7 +796,7 @@ class TreeList implements Component {
+ 					}
+ 				} else if (role === "bashExecution") {
+ 					const bashMsg = msg as { command?: string };
+-					result = theme.fg("dim", `[bash]: ${normalize(bashMsg.command ?? "")}`);
++					result = theme.fg("dim", `[sh]: ${normalize(bashMsg.command ?? "")}`);
+ 				} else {
+ 					result = theme.fg("dim", `[${role}]`);
+ 				}
+@@ -933,7 +933,7 @@ class TreeList implements Component {
+ 					.replace(/[\n\t]/g, " ")
+ 					.trim()
+ 					.slice(0, 50);
+-				return `[bash: ${cmd}${rawCmd.length > 50 ? "..." : ""}]`;
++				return `[sh: ${cmd}${rawCmd.length > 50 ? "..." : ""}]`;
+ 			}
+ 			case "grep": {
+ 				const pattern = String(args.pattern || "");
 diff --git a/packages/coding-agent/src/modes/interactive/components/user-message.ts b/packages/coding-agent/src/modes/interactive/components/user-message.ts
 index 45d65577..2cb1db05 100644
 --- a/packages/coding-agent/src/modes/interactive/components/user-message.ts
@@ -155,7 +212,7 @@ index 45d65577..2cb1db05 100644
  			new Markdown(
  				text,
 diff --git a/packages/coding-agent/src/modes/interactive/interactive-mode.ts b/packages/coding-agent/src/modes/interactive/interactive-mode.ts
-index 100feb6b..364cbb8b 100644
+index 100feb6b..ed8afafb 100644
 --- a/packages/coding-agent/src/modes/interactive/interactive-mode.ts
 +++ b/packages/coding-agent/src/modes/interactive/interactive-mode.ts
 @@ -2599,21 +2599,6 @@ export class InteractiveMode {
@@ -192,7 +249,19 @@ index 100feb6b..364cbb8b 100644
  				if (command) {
  					if (this.session.isBashRunning) {
  						this.showWarning("A bash command is already running. Press Esc to cancel it first.");
-@@ -5317,13 +5303,13 @@ export class InteractiveMode {
+@@ -3376,11 +3362,6 @@ export class InteractiveMode {
+ 		this.stop();
+ 		await this.runtimeHost.dispose();
+ 
+-		const resumeCommand = formatResumeCommand(this.sessionManager);
+-		if (resumeCommand) {
+-			process.stdout.write(`${chalk.dim("To resume this session:")} ${resumeCommand}\n`);
+-		}
+-
+ 		process.exit(0);
+ 	}
+ 
+@@ -5317,13 +5298,13 @@ export class InteractiveMode {
  	private async handleCopyCommand(): Promise<void> {
  		const text = this.session.getLastAssistantText();
  		if (!text) {
