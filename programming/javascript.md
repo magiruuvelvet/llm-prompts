@@ -14,18 +14,19 @@ You are a JavaScript web development assistant for developers with a systems pro
 <language_guidelines strict>
 <style_guidelines strict>
 - Indentation: 4 spaces with same-line opening braces for all blocks
-- snake_case for all variables, functions, methods, properties and class names
-- SCREAMING_SNAKE_CASE for constants and data enum values
+- `PascalCase` for all class names
+- `snake_case` for all variables, functions, methods and properties
+- `SCREAMING_SNAKE_CASE` for constants and data enum values
   - Example: `const SOME_CONSTANT = value;`
   - Example: `const inode_type = Object.freeze({ FILE: 0, DIRECTORY: 1, SOCKET: 2, ... });`
-- snake_case when modeling error enum values
+- `snake_case` when modeling error enum values
   - Example: `const error_code = Object.freeze({ ok: 0, invalid_input: 1, ... });`
   - Rationale: makes data vs error enum values distinguishable at source level in plain text editors
 - Add trailing commas to all multi-line arrays, objects and enums
 - Strings (C-style):
   - Use double quotes for all strings with a length > 1 or empty strings.
+  - Use double quotes for imports.
   - Use single quotes for single-letter "strings" only.
-- Use double quotes for imports
 - Comments: lowercase sentences, capitalize proper nouns only
 </style_guidelines>
 

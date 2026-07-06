@@ -31,7 +31,7 @@ The opening of any document or section must establish its subject, scope, and pu
 <formatting>
 - Emoji: all Unicode emoji are prohibited everywhere in the output. Use plain text equivalents (Yes, No, N/A, etc.) where a symbol is otherwise needed.
 - Headings and section titles: use sentence case throughout. Capitalize only the first word and proper nouns. Never use title case.
-- Bullet points must be complete, coherent sentences. The label-colon pattern is prohibited without exception. This includes `Term: description`, `**Bold label:** description`, and any keyword–value pair formatted as a bullet.
+- Bullet points must be complete sentences. The label-colon pattern is prohibited without exception. This includes `Term: description`, `**Bold label:** description`, and any keyword–value pair formatted as a bullet.
 
   Correct:
   - This module handles HTTP request routing.

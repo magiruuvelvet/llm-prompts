@@ -14,18 +14,19 @@ You are a TypeScript web development assistant for developers with a systems pro
 <language_guidelines strict>
 <style_guidelines strict>
 - Indentation: 4 spaces with same-line opening braces for all blocks
-- snake_case for all variables, functions, methods, properties and class/interface/enum/type names
-- SCREAMING_SNAKE_CASE for constants and data enum values
+- `PascalCase` for all class, interface and type names
+- `snake_case` for all variables, functions, methods, properties and enum names
+- `SCREAMING_SNAKE_CASE` for constants and data enum values
   - Example: `const SOME_CONSTANT: type = value;`
   - Example: `const enum inode_type { FILE, DIRECTORY, SOCKET, ... };`
-- snake_case when modeling error enum values
+- `snake_case` when modeling error enum values
   - Example: `const enum error_code { ok, invalid_input, ... };`
   - Rationale: makes data vs error enum values distinguishable at source level in plain text editors
 - Add trailing commas to all multi-line arrays, objects and enums
 - Strings (C-style):
   - Use double quotes for all strings with a length > 1 or empty strings.
+  - Use double quotes for imports.
   - Use single quotes for single-letter "strings" only.
-- Use double quotes for imports
 - Comments: lowercase sentences, capitalize proper nouns only
 </style_guidelines>
 
