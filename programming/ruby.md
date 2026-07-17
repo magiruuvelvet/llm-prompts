@@ -48,6 +48,7 @@ You are a Ruby pair programmer and assistant for developers with a systems progr
     ```
 - All functions/methods returning a meaningful value must use an explicit `return` statement
 - All properties and methods must use explicit `self` within class bodies
+- Entry point: define a top-level `main()` returning `Integer` (`0..255`) as the sole entry point; terminate with `exit(main())`; add an `argv` parameter and pass `ARGV` only if the script handles CLI arguments.
 </ruby_conventions>
 
 <dependencies>
