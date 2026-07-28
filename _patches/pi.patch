@@ -1,5 +1,17 @@
+diff --git a/package.json b/package.json
+index 74979fc7..f9d2d00f 100644
+--- a/package.json
++++ b/package.json
+@@ -21,7 +21,6 @@
+ 		"check:shrinkwrap": "node scripts/generate-coding-agent-shrinkwrap.mjs --check",
+ 		"check:install-lock:coding-agent": "node scripts/generate-coding-agent-install-lock.mjs --check",
+ 		"check:ts-imports": "node scripts/check-ts-relative-imports.mjs",
+-		"generate:models": "npm --prefix packages/ai run generate-models && npm --prefix packages/ai run generate-image-models",
+ 		"hydrate:model-data": "npm --prefix packages/ai run hydrate-model-data",
+ 		"check:model-data": "npm --prefix packages/ai run check:model-data",
+ 		"generate:model-catalog": "npm --prefix packages/ai run generate-model-catalog",
 diff --git a/packages/agent/package.json b/packages/agent/package.json
-index 6a4be67b..c59249c4 100644
+index b80ed795..38086f4d 100644
 --- a/packages/agent/package.json
 +++ b/packages/agent/package.json
 @@ -22,7 +22,7 @@
@@ -12,23 +24,35 @@ index 6a4be67b..c59249c4 100644
  		"test:harness": "vitest --run --config vitest.harness.config.ts",
  		"coverage:harness": "vitest --run --config vitest.harness.config.ts --coverage",
 diff --git a/packages/ai/package.json b/packages/ai/package.json
-index 7faaf951..741ada8f 100644
+index e3272d07..3522a5cd 100644
 --- a/packages/ai/package.json
 +++ b/packages/ai/package.json
-@@ -47,7 +47,7 @@
- 		"clean": "shx rm -rf dist",
- 		"generate-models": "node scripts/generate-models.ts",
- 		"generate-image-models": "node scripts/generate-image-models.ts",
--		"build": "npm run generate-models && npm run generate-image-models && tsgo -p tsconfig.build.json",
-+		"build": "npm run generate-models && npm run generate-image-models && npx tsc -p tsconfig.build.json",
+@@ -55,7 +55,7 @@
+ 		"generate-image-models": "node scripts/generate-image-models.ts --strict",
+ 		"check:model-data": "node scripts/check-model-data.ts",
+ 		"build": "npm run generate-models && npm run build:offline",
+-		"build:offline": "npm run check:model-data && tsgo -p tsconfig.build.json && shx rm -rf dist/providers/data && shx cp -r src/providers/data dist/providers/data",
++		"build:offline": "npm run check:model-data && npx tsc -p tsconfig.build.json && shx rm -rf dist/providers/data && shx cp -r src/providers/data dist/providers/data",
  		"test": "vitest --run",
  		"prepublishOnly": "npm run clean && npm run build"
  	},
+diff --git a/packages/ai/scripts/generate-models.ts b/packages/ai/scripts/generate-models.ts
+index be2e08a7..07d3840b 100644
+--- a/packages/ai/scripts/generate-models.ts
++++ b/packages/ai/scripts/generate-models.ts
+@@ -1,5 +1,7 @@
+ #!/usr/bin/env node
+ 
++process.exit(0);
++
+ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from "fs";
+ import { dirname, join, resolve } from "path";
+ import { fileURLToPath } from "url";
 diff --git a/packages/ai/src/api/openai-completions.ts b/packages/ai/src/api/openai-completions.ts
-index b7cbb00e..1e314d3e 100644
+index 29bb064f..e351d9a5 100644
 --- a/packages/ai/src/api/openai-completions.ts
 +++ b/packages/ai/src/api/openai-completions.ts
-@@ -567,12 +567,12 @@ function buildParams(
+@@ -702,12 +702,12 @@ function buildParams(
  		params.store = false;
  	}
  
@@ -47,30 +71,30 @@ index b7cbb00e..1e314d3e 100644
  	}
  
  	if (options?.temperature !== undefined) {
-@@ -1036,7 +1036,7 @@ export function convertMessages(
+@@ -1198,7 +1198,7 @@ export function convertMessages(
+ 
+ 				// Always send tool result with text (or placeholder if only images)
+ 				const hasText = textResult.length > 0;
+-				const toolResultText = hasText ? textResult : hasImages ? "(see attached image)" : "(no tool output)";
++				const toolResultText = hasText ? textResult : hasImages ? "" : "";
  				// Some providers require the 'name' field in tool results
  				const toolResultMsg: ChatCompletionToolMessageParam = {
  					role: "tool",
--					content: sanitizeSurrogates(hasText ? textResult : "(see attached image)"),
-+					content: sanitizeSurrogates(hasText ? textResult : ""),
- 					tool_call_id: toolMsg.toolCallId,
- 				};
- 				if (compat.requiresToolResultName && toolMsg.toolName) {
 diff --git a/packages/ai/src/api/openai-responses-shared.ts b/packages/ai/src/api/openai-responses-shared.ts
-index 9e58046e..57871400 100644
+index de98cd48..e88a4b5f 100644
 --- a/packages/ai/src/api/openai-responses-shared.ts
 +++ b/packages/ai/src/api/openai-responses-shared.ts
-@@ -251,7 +251,7 @@ export function convertResponsesMessages<TApi extends Api>(
+@@ -85,7 +85,7 @@ function convertToolResultOutput<TApi extends Api>(
+ 	const hasText = textResult.length > 0;
  
- 				output = contentParts;
- 			} else {
--				output = sanitizeSurrogates(hasText ? textResult : "(see attached image)");
-+				output = sanitizeSurrogates(hasText ? textResult : "");
- 			}
+ 	if (images.length === 0 || !model.input.includes("image")) {
+-		return sanitizeSurrogates(hasText ? textResult : images.length > 0 ? "(see attached image)" : "(no tool output)");
++		return sanitizeSurrogates(hasText ? textResult : images.length > 0 ? "" : "");
+ 	}
  
- 			messages.push({
+ 	const output: ToolResultOutputContent = [];
 diff --git a/packages/coding-agent/package.json b/packages/coding-agent/package.json
-index 016973d4..3a8ee6b9 100644
+index 3ba3d1f9..fddf3370 100644
 --- a/packages/coding-agent/package.json
 +++ b/packages/coding-agent/package.json
 @@ -30,7 +30,7 @@
@@ -83,10 +107,10 @@ index 016973d4..3a8ee6b9 100644
  		"copy-assets": "shx mkdir -p dist/modes/interactive/theme && shx cp src/modes/interactive/theme/*.json dist/modes/interactive/theme/ && shx mkdir -p dist/modes/interactive/assets && shx cp src/modes/interactive/assets/*.png dist/modes/interactive/assets/ && shx mkdir -p dist/core/export-html/vendor && shx cp src/core/export-html/template.html src/core/export-html/template.css src/core/export-html/template.js dist/core/export-html/ && shx cp src/core/export-html/vendor/*.js dist/core/export-html/vendor/",
  		"copy-binary-assets": "shx cp package.json dist/ && shx cp README.md dist/ && shx cp CHANGELOG.md dist/ && shx mkdir -p dist/theme && shx cp src/modes/interactive/theme/*.json dist/theme/ && shx mkdir -p dist/assets && shx cp src/modes/interactive/assets/*.png dist/assets/ && shx mkdir -p dist/export-html/vendor && shx cp src/core/export-html/template.html dist/export-html/ && shx cp src/core/export-html/vendor/*.js dist/export-html/vendor/ && shx cp -r docs dist/ && shx cp -r examples dist/ && shx cp ../../node_modules/@silvia-odwyer/photon-node/photon_rs_bg.wasm dist/",
 diff --git a/packages/coding-agent/src/core/slash-commands.ts b/packages/coding-agent/src/core/slash-commands.ts
-index 77dd79aa..ce4071d1 100644
+index 7204988f..deb54aa7 100644
 --- a/packages/coding-agent/src/core/slash-commands.ts
 +++ b/packages/coding-agent/src/core/slash-commands.ts
-@@ -21,7 +21,6 @@ export const BUILTIN_SLASH_COMMANDS: ReadonlyArray<BuiltinSlashCommand> = [
+@@ -22,7 +22,6 @@ export const BUILTIN_SLASH_COMMANDS: ReadonlyArray<BuiltinSlashCommand> = [
  	{ name: "scoped-models", description: "Enable/disable models for Ctrl+P cycling" },
  	{ name: "export", description: "Export session (HTML default, or specify path: .html/.jsonl)" },
  	{ name: "import", description: "Import and resume a session from a JSONL file" },
@@ -94,18 +118,18 @@ index 77dd79aa..ce4071d1 100644
  	{ name: "copy", description: "Copy last agent message to clipboard" },
  	{ name: "name", description: "Set session display name" },
  	{ name: "session", description: "Show session info and stats" },
-@@ -30,9 +29,6 @@ export const BUILTIN_SLASH_COMMANDS: ReadonlyArray<BuiltinSlashCommand> = [
+@@ -31,9 +30,6 @@ export const BUILTIN_SLASH_COMMANDS: ReadonlyArray<BuiltinSlashCommand> = [
  	{ name: "fork", description: "Create a new fork from a previous user message" },
  	{ name: "clone", description: "Duplicate the current session at the current position" },
  	{ name: "tree", description: "Navigate session tree (switch branches)" },
 -	{ name: "trust", description: "Save project trust decision for future sessions" },
--	{ name: "login", description: "Configure provider authentication" },
+-	{ name: "login", description: "Configure provider authentication", argumentHint: "<provider>" },
 -	{ name: "logout", description: "Remove provider authentication" },
  	{ name: "new", description: "Start a new session" },
  	{ name: "compact", description: "Manually compact the session context" },
  	{ name: "resume", description: "Resume a different session" },
 diff --git a/packages/coding-agent/src/core/system-prompt.ts b/packages/coding-agent/src/core/system-prompt.ts
-index 7580782b..8a1fb4f6 100644
+index 35f4ca40..3336c1bf 100644
 --- a/packages/coding-agent/src/core/system-prompt.ts
 +++ b/packages/coding-agent/src/core/system-prompt.ts
 @@ -26,6 +26,11 @@ export interface BuildSystemPromptOptions {
@@ -120,14 +144,14 @@ index 7580782b..8a1fb4f6 100644
  	const {
  		customPrompt,
  		selectedTools,
-@@ -170,4 +175,5 @@ Pi documentation (read only when the user asks about pi itself, its SDK, extensi
+@@ -159,4 +164,5 @@ Pi documentation (read only when the user asks about pi itself, its SDK, extensi
  	prompt += `\nCurrent working directory: ${promptCwd}`;
  
  	return prompt;
 +*/
  }
 diff --git a/packages/coding-agent/src/modes/interactive/components/assistant-message.ts b/packages/coding-agent/src/modes/interactive/components/assistant-message.ts
-index d6b17d37..cc3e00ac 100644
+index 6c9a2a40..0b06c2fe 100644
 --- a/packages/coding-agent/src/modes/interactive/components/assistant-message.ts
 +++ b/packages/coding-agent/src/modes/interactive/components/assistant-message.ts
 @@ -23,7 +23,7 @@ export class AssistantMessageComponent extends Container {
@@ -140,10 +164,10 @@ index d6b17d37..cc3e00ac 100644
  		super();
  
 diff --git a/packages/coding-agent/src/modes/interactive/components/model-selector.ts b/packages/coding-agent/src/modes/interactive/components/model-selector.ts
-index 32711929..c12a6f33 100644
+index 567784a5..98c379e1 100644
 --- a/packages/coding-agent/src/modes/interactive/components/model-selector.ts
 +++ b/packages/coding-agent/src/modes/interactive/components/model-selector.ts
-@@ -87,18 +87,6 @@ export class ModelSelectorComponent extends Container implements Focusable {
+@@ -92,18 +92,6 @@ export class ModelSelectorComponent extends Container implements Focusable {
  		this.addChild(new DynamicBorder());
  		this.addChild(new Spacer(1));
  
@@ -163,10 +187,10 @@ index 32711929..c12a6f33 100644
  		this.searchInput = new Input();
  		if (initialSearchInput) {
 diff --git a/packages/coding-agent/src/modes/interactive/components/tree-selector.ts b/packages/coding-agent/src/modes/interactive/components/tree-selector.ts
-index 8bcdc2fb..08eaf0cc 100644
+index f70e2060..f39e444e 100644
 --- a/packages/coding-agent/src/modes/interactive/components/tree-selector.ts
 +++ b/packages/coding-agent/src/modes/interactive/components/tree-selector.ts
-@@ -796,7 +796,7 @@ class TreeList implements Component {
+@@ -802,7 +802,7 @@ class TreeList implements Component {
  					}
  				} else if (role === "bashExecution") {
  					const bashMsg = msg as { command?: string };
@@ -175,7 +199,7 @@ index 8bcdc2fb..08eaf0cc 100644
  				} else {
  					result = theme.fg("dim", `[${role}]`);
  				}
-@@ -933,7 +933,7 @@ class TreeList implements Component {
+@@ -969,7 +969,7 @@ class TreeList implements Component {
  					.replace(/[\n\t]/g, " ")
  					.trim()
  					.slice(0, 50);
@@ -184,7 +208,7 @@ index 8bcdc2fb..08eaf0cc 100644
  			}
  			case "grep": {
  				const pattern = String(args.pattern || "");
-@@ -951,8 +951,8 @@ class TreeList implements Component {
+@@ -987,8 +987,8 @@ class TreeList implements Component {
  			}
  			default: {
  				// Custom tool - show name and truncated JSON args
@@ -209,10 +233,10 @@ index 74b54fd7..636bd0ad 100644
  		this.text = text;
  		this.markdownTheme = markdownTheme;
 diff --git a/packages/coding-agent/src/modes/interactive/interactive-mode.ts b/packages/coding-agent/src/modes/interactive/interactive-mode.ts
-index 8fa18546..95657816 100644
+index 30cd984f..2a5145fa 100644
 --- a/packages/coding-agent/src/modes/interactive/interactive-mode.ts
 +++ b/packages/coding-agent/src/modes/interactive/interactive-mode.ts
-@@ -2581,11 +2581,6 @@ export class InteractiveMode {
+@@ -2673,11 +2673,6 @@ export class InteractiveMode {
  				this.editor.setText("");
  				return;
  			}
@@ -224,7 +248,7 @@ index 8fa18546..95657816 100644
  			if (text === "/copy") {
  				await this.handleCopyCommand();
  				this.editor.setText("");
-@@ -2626,21 +2621,6 @@ export class InteractiveMode {
+@@ -2718,22 +2713,6 @@ export class InteractiveMode {
  				this.editor.setText("");
  				return;
  			}
@@ -233,9 +257,10 @@ index 8fa18546..95657816 100644
 -				this.editor.setText("");
 -				return;
 -			}
--			if (text === "/login") {
--				this.showOAuthSelector("login");
+-			if (text === "/login" || text.startsWith("/login ")) {
+-				const providerRef = text.startsWith("/login ") ? text.slice(7).trim() : undefined;
 -				this.editor.setText("");
+-				await this.handleLoginCommand(providerRef);
 -				return;
 -			}
 -			if (text === "/logout") {
@@ -246,7 +271,7 @@ index 8fa18546..95657816 100644
  			if (text === "/new") {
  				this.editor.setText("");
  				await this.handleClearCommand();
-@@ -2685,8 +2665,9 @@ export class InteractiveMode {
+@@ -2778,8 +2757,9 @@ export class InteractiveMode {
  
  			// Handle bash command (! for normal, !! for excluded from context)
  			if (text.startsWith("!")) {
@@ -258,7 +283,7 @@ index 8fa18546..95657816 100644
  				if (command) {
  					if (this.session.isBashRunning) {
  						this.showWarning("A bash command is already running. Press Esc to cancel it first.");
-@@ -3360,11 +3341,6 @@ export class InteractiveMode {
+@@ -3575,11 +3555,6 @@ export class InteractiveMode {
  		this.stop();
  		await this.runtimeHost.dispose();
  
@@ -270,7 +295,7 @@ index 8fa18546..95657816 100644
  		process.exit(0);
  	}
  
-@@ -5314,13 +5290,13 @@ export class InteractiveMode {
+@@ -5595,13 +5570,13 @@ export class InteractiveMode {
  	private async handleCopyCommand(): Promise<void> {
  		const text = this.session.getLastAssistantText();
  		if (!text) {
@@ -307,7 +332,7 @@ index 09d9a119..4ec62031 100644
 +*/
  }
 diff --git a/packages/tui/package.json b/packages/tui/package.json
-index a538b5e4..72aac527 100644
+index 8e5b0a4c..0fa089b4 100644
 --- a/packages/tui/package.json
 +++ b/packages/tui/package.json
 @@ -6,7 +6,7 @@
@@ -316,14 +341,14 @@ index a538b5e4..72aac527 100644
  		"clean": "shx rm -rf dist",
 -		"build": "tsgo -p tsconfig.build.json",
 +		"build": "npx tsc -p tsconfig.build.json -t es2024",
- 		"test": "node --test test/*.test.ts",
+ 		"test": "node --test --test-reporter=dot --test-reporter-destination=stdout test/*.test.ts",
  		"prepublishOnly": "npm run clean && npm run build"
  	},
 diff --git a/packages/tui/src/components/editor.ts b/packages/tui/src/components/editor.ts
-index bedd0105..7c0b0dc5 100644
+index 8b831f4c..cac1454e 100644
 --- a/packages/tui/src/components/editor.ts
 +++ b/packages/tui/src/components/editor.ts
-@@ -1180,23 +1180,6 @@ export class Editor implements Component, Focusable {
+@@ -1194,23 +1194,6 @@ export class Editor implements Component, Focusable {
  		// Split into lines to check for large paste
  		const pastedLines = filteredText.split("\n");
  
@@ -348,21 +373,42 @@ index bedd0105..7c0b0dc5 100644
  			// Single line - insert atomically (do not trigger autocomplete during paste)
  			this.insertTextAtCursorInternal(filteredText);
 diff --git a/scripts/local-release.mjs b/scripts/local-release.mjs
-index 3f35e80c..384c86cb 100644
+index 16ec5ab9..1972b8b4 100644
 --- a/scripts/local-release.mjs
 +++ b/scripts/local-release.mjs
-@@ -201,10 +201,10 @@ if (!options.skipCheck) {
- 	run("npm", ["run", "check"], { cwd: repoRoot });
- }
+@@ -210,23 +210,6 @@ const bunInstallDirectory = join(outDir, "bun-install");
+ const binaryDirectory = join(outDir, "bun");
+ mkdirSync(tarballDirectory, { recursive: true });
  
+-// Release artifacts always use a freshly generated, strictly validated catalog,
+-// including when checks or tests are explicitly skipped.
+-run("npm", ["run", "generate:models"], { cwd: repoRoot });
+-
+-if (!options.skipCheck) {
+-	run("npm", ["run", "check"], { cwd: repoRoot });
+-}
+-
 -for (const pkg of packages) {
 -	run("npm", ["run", "clean"], { cwd: pkg.directory });
--	run("npm", ["run", "build"], { cwd: pkg.directory });
+-	run("npm", ["run", pkg.directory === "packages/ai" ? "build:offline" : "build"], { cwd: pkg.directory });
 -}
-+//for (const pkg of packages) {
-+//	run("npm", ["run", "clean"], { cwd: pkg.directory });
-+//	run("npm", ["run", "build"], { cwd: pkg.directory });
-+//}
- 
+-
+-if (!options.skipTest) {
+-	run("./test.sh", [], { cwd: repoRoot });
+-}
+-
  const tarballs = new Map();
  for (const pkg of packages) {
+ 	const tarball = packPackage(pkg, tarballDirectory);
+diff --git a/scripts/release.mjs b/scripts/release.mjs
+index 14b1e372..f1767970 100755
+--- a/scripts/release.mjs
++++ b/scripts/release.mjs
+@@ -201,7 +201,6 @@ console.log();
+ 
+ // 4. Regenerate release artifacts
+ console.log("Regenerating release artifacts...");
+-run("npm run generate:models");
+ run("npm run check:model-data");
+ run("npm run shrinkwrap:coding-agent");
+ run("npm run install-lock:coding-agent");
