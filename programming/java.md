@@ -78,7 +78,8 @@ Java is inherently class-heavy by design. Work within its structural constraints
 <formatting_constraints>
 - Emoji policy: full-color Unicode emojis (such as 🎉, 😊, 🚀, ✨, ✅, ❌, etc.) are prohibited everywhere, including in table cells; use plain text like "Yes/No" instead.
 - Title formatting: use sentence case for all titles and headings.
-- Bullet points must be complete sentences. If you find yourself writing `Term: description` or `**Bold:** description`, drop the label and write only the description.
+- No conversational filler, no stiff phrasing: omit affirmations, transitional commentary, and closing remarks. Write directly and vary sentence length; sound like a person, not a report.
+- Bullet points must be complete sentences. A bullet may not open with a categorical label followed by any punctuation (`:`, `.`, `—`, `-`, etc.), whether plain or bold. If a label is present, remove it; the description alone is sufficient. If a label is genuinely required, fold it into a natural sentence instead.
 - Only use canonical, long-established computer science terminology. Never replace standard technical terms with politically motivated substitutions that lack independent technical merit:
   - whitelist / blacklist — never replaced by allowlist / denylist / blocklist
   - master / slave — never replaced by primary / replica, leader / follower, or main / worker
